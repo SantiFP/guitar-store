@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store";
 import { cartActions } from "@/store";
 
-
 const Item = (props: ItemObj) => {
   const [amount, setAmount] = useState<number>(1);
   const dispatch = useDispatch<AppDispatch>();
@@ -27,7 +26,7 @@ const Item = (props: ItemObj) => {
   };
 
   return (
-    <div className="bg-white w-4/6 mx-auto text-black mt-12 lg:mt-0 lg:w-[94%]">
+    <div className="itemDiv">
       <div className="flex flex-col lg:flex lg:flex-row">
         <img
           width={0}
@@ -40,17 +39,11 @@ const Item = (props: ItemObj) => {
         <div className="flex flex-col space-y-2 text-center mt-4 w-full">
           <p className="text-xl">{props.name}</p>
           <div className="text-3xl">
-            <button
-              className="w-5/6 mx-auto  bg-zinc-900 hover:bg-black text-white lg:w-full"
-              onClick={amountHandler.bind(null, "+")}
-            >
+            <button className="signs" onClick={amountHandler.bind(null, "+")}>
               <span className="relative bottom-[0.2rem]">+</span>
             </button>
             <p>{amount}</p>
-            <button
-              className="w-5/6 mx-auto bg-zinc-900 hover:bg-black text-white lg:w-full"
-              onClick={amountHandler.bind(null, "-")}
-            >
+            <button className="signs" onClick={amountHandler.bind(null, "-")}>
               <span className="relative bottom-[0.2rem]">-</span>
             </button>
           </div>
@@ -65,7 +58,7 @@ const Item = (props: ItemObj) => {
           onClick={() => {
             addToCart();
           }}
-          className=" w-full bg-zinc-900 py-2 hover:bg-zinc-800"
+          className="addButton"
         >
           Añadir al carrito
         </button>

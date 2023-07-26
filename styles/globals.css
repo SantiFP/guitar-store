@@ -19,11 +19,20 @@ body {
   .login-cart {
     @apply flex flex-row justify-center space-x-4 pt-3 lg:w-[8%] lg:items-center lg:pt-16 lg:space-x-0 lg:flex lg:flex-col;
   }
-  .cartIcon{
-    @apply bg-red-500 absolute -mt-12 rounded-full text-lg px-2 pointer-events-none
+  .signs {
+    @apply w-5/6 mx-auto bg-zinc-900 hover:bg-black text-white cursor-auto lg:cursor-pointer lg:w-full;
   }
-  .logout{
-    @apply hover:underline  w-fit px-4 bg-black mr-32 lg:mr-0 lg:mb-24 lg:fixed lg:pl-5
+  .addButton {
+    @apply w-full bg-zinc-900 py-2 hover:bg-zinc-800 cursor-auto lg:cursor-pointer;
+  }
+  .itemDiv {
+    @apply bg-white w-4/6 mx-auto text-black mt-12 lg:mt-0 lg:w-[94%];
+  }
+  .cartIcon {
+    @apply bg-red-500 absolute -mt-12 rounded-full text-lg px-2 pointer-events-none;
+  }
+  .logout {
+    @apply hover:underline  w-fit px-4 bg-black mr-32 lg:mr-0 lg:mb-24 lg:fixed lg:pl-5;
   }
   .headLg {
     @apply hidden lg:flex lg:flex-row lg:justify-center lg:pl-24 lg:pt-12 lg:space-x-20 lg:w-[92%] lg:text-xl;
