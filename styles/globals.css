@@ -23,7 +23,7 @@ body {
     @apply w-5/6 mx-auto bg-zinc-900  text-white cursor-auto lg:cursor-pointer lg:w-full lg:hover:bg-black;
   }
   .addButton {
-    @apply w-full bg-zinc-900 py-2  cursor-auto lg:cursor-pointer lg:hover:bg-zinc-800;
+    @apply w-full bg-zinc-900 py-2  cursor-auto lg:cursor-pointer lg:hover:bg-black ;
   }
   .itemDiv {
     @apply bg-white w-4/6 mx-auto text-black mt-12 lg:mt-0 lg:w-[94%];
