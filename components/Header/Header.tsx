@@ -46,7 +46,7 @@ const Header: React.FC<{ children: ReactNode; onShow: () => void }> = (
     if (cart.length === 0) {
       return;
     }
-    dispatchStore(handleAnimation('a'));
+    dispatchStore(handleAnimation({type:'a',id:0}));
   }, [cart]);
 
   return (
@@ -76,15 +76,15 @@ const Header: React.FC<{ children: ReactNode; onShow: () => void }> = (
                   src={"/cart.png"}
                   onClick={() => {
                     props.onShow();
-                    dispatchStore(handleAnimation('a'))
+                    dispatchStore(handleAnimation({type:'a',id:0}))
                   }}
                   className={` ${
-                    animationA && classes.cart
+                    animationA.on && classes.cart
                   } lg:cursor-pointer lg:-mb-1`}
                 ></Image>
                 <p
                   className={`cartCount ${
-                    animationA && classes.cart
+                    animationA.on && classes.cart
                   }`}
                 >
                   {cart.length}

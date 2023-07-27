@@ -17,6 +17,7 @@ const Cart: React.FC<{ onClose: () => void }> = (props) => {
 
   const dispatch = useDispatch<AppDispatch>();
 
+
   return (
     <Modal onClose={props.onClose}>
       <div className="flex flex-row-reverse pb-12">
@@ -91,7 +92,7 @@ const Cart: React.FC<{ onClose: () => void }> = (props) => {
               <div className=" w-1/3 flex  justify-end lg:justify-center lg:w-[16%] ">
                 <img
                   className={`w-8 h-8 lg:cursor-pointer ${
-                    animationC && classes.delete
+                    (animationC.on && (el.id === animationC.id)) && classes.delete
                   }`}
                   src="/borrar.png"
                   alt="delete"
@@ -104,7 +105,7 @@ const Cart: React.FC<{ onClose: () => void }> = (props) => {
                         price: el.price,
                       })
                     );
-                    dispatch(handleAnimation('c'))
+                    dispatch(handleAnimation({type:'c',id:el.id}))
                   }}
                 />
               </div>

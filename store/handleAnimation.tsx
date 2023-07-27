@@ -1,7 +1,11 @@
 import { AppDispatch } from ".";
 import { animationActions } from "./animation";
 
-export const handleAnimation = (type:string) => {
+interface Animate{
+  type:string,
+  id:number
+}
+export const handleAnimation = (type:Animate) => {
   return (dispatch: AppDispatch) => {
     dispatch(animationActions.toggleAnimation(type));
     const timer = setTimeout(() => {

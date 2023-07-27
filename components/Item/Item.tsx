@@ -10,7 +10,7 @@ import { handleAnimation } from "@/store/handleAnimation";
 const Item = (props: ItemObj) => {
   const [amount, setAmount] = useState<number>(1);
   const dispatch = useDispatch<AppDispatch>();
-  const {animationB} = useSelector((state: RootState) => state.animation);
+  const { animationC } = useSelector((state: RootState) => state.animation);
 
   const amountHandler = (type: string) => {
     type === "+" && setAmount(amount + 1);
@@ -61,9 +61,11 @@ const Item = (props: ItemObj) => {
         <button
           onClick={() => {
             addToCart();
-            dispatch(handleAnimation('b'));
+            dispatch(handleAnimation({ type: "c", id: props.id }));
           }}
-          className={`addButton ${animationB && classes.add}`}
+          className={`addButton ${
+            animationC.on && props.id === animationC.id && classes.add
+          }`}
         >
           Añadir al carrito
         </button>
