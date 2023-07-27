@@ -29,7 +29,7 @@ const Cart: React.FC<{ onClose: () => void }> = (props) => {
           />
         </div>
         <p className="text-center font-semibold w-11/12 pl-10 text-lg  lg:pl-0">
-          {!cart.length ? "CARRO VACÍO" : "TU CARRITO"}
+          {!cart.length ? "CARRITO VACÍO" : "TU CARRITO"}
         </p>
       </div>
 
