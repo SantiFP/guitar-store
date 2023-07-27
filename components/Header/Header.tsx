@@ -150,34 +150,34 @@ const Header: React.FC<{ children: ReactNode; onShow: () => void }> = (
           } sidebar `}
         >
           <Link
-            className={`${classes.link} ${
+            className={`${classes.link} cursor-auto  ${
               pathname === "/" && `${classes.active} underline`
-            }`}
+            } lg:cursor-pointer`}
             href="/"
           >
             Home
           </Link>
           <Link
-            className={`${classes.link} ${
+            className={`${classes.link}  cursor-auto  ${
               pathname === "/acoustics" && `${classes.active} underline`
-            }`}
+            }lg:cursor-pointer`}
             href="/acoustics"
           >
             Guitarras acústicas
           </Link>
           <Link
-            className={`${classes.link} ${
+            className={`${classes.link} cursor-auto  ${
               pathname === "/electrics" && `${classes.active} underline `
-            }`}
+            } lg:cursor-pointer`}
             href="/electrics"
           >
             Guitarras eléctricas
           </Link>
 
           <Link
-            className={`${classes.link} ${
+            className={`${classes.link} cursor-auto ${
               pathname === "/gadgets" && `${classes.active} underline`
-            }`}
+            } lg:cursor-pointer`}
             href="/gadgets"
           >
             Accesorios
