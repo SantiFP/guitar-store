@@ -4,8 +4,9 @@ import { ReactNode, useEffect, useReducer } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Backdrop } from "../Modal/Modal";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/store";
+import { handleAnimation } from "@/store/handleAnimation";
 
 type ActionType = {
   type: string;
@@ -14,20 +15,15 @@ type ActionType = {
 
 type StateType = {
   sideState: boolean;
-  animate: boolean;
 };
 
 const initialState: StateType = {
   sideState: false,
-  animate: false,
 };
 
 const reducer = (state: StateType, action: ActionType) => {
   if (action.type === "sideState") {
     return { ...state, sideState: !state.sideState };
-  }
-  if (action.type === "animate") {
-    return { ...state, animate: !state.animate };
   }
   return state;
 };
@@ -36,7 +32,9 @@ const Header: React.FC<{ children: ReactNode; onShow: () => void }> = (
   props
 ) => {
   const [reducerState, dispatch] = useReducer(reducer, initialState);
-  const cart = useSelector((state: RootState) => state.cart);
+  const dispatchStore = useDispatch<AppDispatch>();
+  const cart = useSelector((state: RootState) => state.cart.cart);
+  const {animationA} = useSelector((state:RootState) => state.animation);
 
   const { pathname } = useRouter();
 
@@ -44,21 +42,11 @@ const Header: React.FC<{ children: ReactNode; onShow: () => void }> = (
     dispatch({ type: "sideState" });
   };
 
-  const animateHandler = () => {
-    dispatch({ type: "animate" });
-    const timer = setTimeout(() => {
-      dispatch({ type: "animate" });
-    }, 400);
-    setTimeout(() => {
-      clearInterval(timer);
-    }, 500);
-  };
-
   useEffect(() => {
     if (cart.length === 0) {
       return;
     }
-    animateHandler();
+    dispatchStore(handleAnimation('a'));
   }, [cart]);
 
   return (
@@ -88,15 +76,15 @@ const Header: React.FC<{ children: ReactNode; onShow: () => void }> = (
                   src={"/cart.png"}
                   onClick={() => {
                     props.onShow();
-                    animateHandler();
+                    dispatchStore(handleAnimation('a'))
                   }}
                   className={` ${
-                    reducerState.animate && classes.cart
+                    animationA && classes.cart
                   } lg:cursor-pointer lg:-mb-1`}
                 ></Image>
                 <p
                   className={`cartCount ${
-                    reducerState.animate && classes.cart
+                    animationA && classes.cart
                   }`}
                 >
                   {cart.length}

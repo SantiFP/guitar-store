@@ -1,12 +1,16 @@
 import { useState } from "react";
 import { ItemObj } from "@/pages";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store";
 import { AppDispatch } from "@/store";
-import { cartActions } from "@/store";
+import classes from "./Item.module.css";
+import { cartActions } from "@/store/cart";
+import { handleAnimation } from "@/store/handleAnimation";
 
 const Item = (props: ItemObj) => {
   const [amount, setAmount] = useState<number>(1);
   const dispatch = useDispatch<AppDispatch>();
+  const {animationB} = useSelector((state: RootState) => state.animation);
 
   const amountHandler = (type: string) => {
     type === "+" && setAmount(amount + 1);
@@ -57,8 +61,9 @@ const Item = (props: ItemObj) => {
         <button
           onClick={() => {
             addToCart();
+            dispatch(handleAnimation('b'));
           }}
-          className="addButton"
+          className={`addButton ${animationB && classes.add}`}
         >
           Añadir al carrito
         </button>

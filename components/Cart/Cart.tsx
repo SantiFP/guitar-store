@@ -3,10 +3,16 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store";
-import { cartActions } from "@/store";
+import { useState } from "react";
+import classes from "./Cart.module.css";
+import { cartActions } from "@/store/cart";
+import { handleAnimation } from "@/store/handleAnimation";
 
 const Cart: React.FC<{ onClose: () => void }> = (props) => {
-  const cart = useSelector((state: RootState) => state.cart);
+
+  const cart = useSelector((state: RootState) => state.cart.cart);
+  const {animationC} = useSelector((state: RootState) => state.animation);
+
   const total = cart.reduce((acc, el) => acc + el.price, 0);
 
   const dispatch = useDispatch<AppDispatch>();
@@ -27,9 +33,7 @@ const Cart: React.FC<{ onClose: () => void }> = (props) => {
       </div>
 
       <div>
-        <div
-          className={`w-full text-center`}
-        >
+        <div className={`w-full text-center`}>
           {cart.length == 1 ? (
             <div>
               <span>Tienes </span>
@@ -86,10 +90,12 @@ const Cart: React.FC<{ onClose: () => void }> = (props) => {
               <p className=" w-1/3 lg:w-[42%]">${el.price}</p>
               <div className=" w-1/3 flex  justify-end lg:justify-center lg:w-[16%] ">
                 <img
-                  className="w-8 h-8 lg:cursor-pointer"
+                  className={`w-8 h-8 lg:cursor-pointer ${
+                    animationC && classes.delete
+                  }`}
                   src="/borrar.png"
                   alt="delete"
-                  onClick={() =>
+                  onClick={() => {
                     dispatch(
                       cartActions.removeFromCart({
                         name: el.name,
@@ -97,8 +103,9 @@ const Cart: React.FC<{ onClose: () => void }> = (props) => {
                         amount: el.amount,
                         price: el.price,
                       })
-                    )
-                  }
+                    );
+                    dispatch(handleAnimation('c'))
+                  }}
                 />
               </div>
             </div>
