@@ -19,10 +19,12 @@
 
 .active {
   animation: active 0.2s ease-in-out forwards;
+  -webkit-tap-highlight-color: transparent; /* Para navegadores basados en WebKit (Safari, Chrome, etc.) */
 }
 
 .link {
   transform: scale(1);
+  -webkit-tap-highlight-color: transparent; /* Para navegadores basados en WebKit (Safari, Chrome, etc.) */
 }
 
 @keyframes active {

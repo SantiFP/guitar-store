@@ -160,7 +160,7 @@ const Header: React.FC<{ children: ReactNode; onShow: () => void }> = (
           <Link
             className={`${classes.link}  cursor-auto  ${
               pathname === "/acoustics" && `${classes.active} underline`
-            }lg:cursor-pointer`}
+            } lg:cursor-pointer`}
             href="/acoustics"
           >
             Guitarras acústicas
