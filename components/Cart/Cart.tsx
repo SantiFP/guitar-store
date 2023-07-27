@@ -37,7 +37,7 @@ const Cart: React.FC<{ onClose: () => void }> = (props) => {
           </div>
         )}
 
-        <div className=" text-center w-[32%] lg:w-full">
+        <div className={`" text-center w-[32%] ${cart.length === 0 && 'w-full'}  lg:w-full"`}>
           {cart.length == 1 ? (
             <div>
               <span>Tienes </span>
