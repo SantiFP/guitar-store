@@ -46,4 +46,7 @@ body {
   .cartDiv{
     @apply flex flex-row text-xl justify-between border-b-[0.09rem] pb-4 pt-2 border-black 
   }
+  .buy{
+    @apply bg-zinc-800 rounded-3xl px-4 text-center py-2 mt-4 text-xl  text-white
+  }
 }

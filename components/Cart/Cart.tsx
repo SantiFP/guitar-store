@@ -6,6 +6,7 @@ import { AppDispatch } from "@/store";
 import { cartActions } from "@/store/cart";
 import { handleAnimation } from "@/store/handleAnimation";
 import classes from "./Cart.module.css";
+import Link from "next/link";
 
 const Cart: React.FC<{ onClose: () => void }> = (props) => {
   const cart = useSelector((state: RootState) => state.cart.cart);
@@ -79,6 +80,23 @@ const Cart: React.FC<{ onClose: () => void }> = (props) => {
         </>
       )}
 
+      {/* <div className="cartDiv">
+        <p className="w-[45%] lg:w-[75%]">csacas</p>
+        <div className="flex flex-row w-[55%] lg:w-[25%]">
+          <p className=" w-1/3 lg:w-[42%] text-right pr-5">X15</p>
+          <p className=" w-1/3 lg:w-[42%]">$1555</p>
+          <div className=" w-1/3 flex  justify-end lg:justify-center lg:w-[16%] ">
+            <img
+              className={`w-8 h-8 lg:cursor-pointer ${
+                animationC.on && classes.delete
+              }`}
+              src="/borrar.png"
+              alt="delete"
+            />
+          </div>
+        </div>
+      </div> */}
+
       {cart.map((el) => {
         return (
           <div key={el.id} className="cartDiv">
@@ -89,9 +107,7 @@ const Cart: React.FC<{ onClose: () => void }> = (props) => {
               <div className=" w-1/3 flex  justify-end lg:justify-center lg:w-[16%] ">
                 <img
                   className={`w-8 h-8 lg:cursor-pointer ${
-                    animationC.on &&
-                    el.id === animationC.id &&
-                    classes.delete
+                    animationC.on && el.id === animationC.id && classes.delete
                   }`}
                   src="/borrar.png"
                   alt="delete"
@@ -113,8 +129,11 @@ const Cart: React.FC<{ onClose: () => void }> = (props) => {
         );
       })}
       {cart.length > 0 && (
-        <div>
-          <p>Total: ${total}</p>
+        <div className="text-center text-lg ml-auto pt-4">
+          <p className="pr-4 text-right">Total a pagar: ${total}</p>
+          <Link href="/payment">
+            <button onClick={props.onClose} className="buy">COMPRAR</button>
+          </Link>
         </div>
       )}
     </Modal>
