@@ -9,7 +9,7 @@ interface Buttons {
 const initialState: Buttons = {
   animationA: { on: false, id: 0 },
   animationB: { on: false, id: 0 },
-  animationC: { on: false, id: 0 },
+  animationC: { on: false, id: 0},
 };
 
 const animationSlice = createSlice({
