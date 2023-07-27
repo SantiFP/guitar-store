@@ -27,13 +27,15 @@ const Cart: React.FC<{ onClose: () => void }> = (props) => {
       </div>
 
       <div className="flex flex-row">
-        <div className="text-xs w-[30%] lg:hidden">
-          <ul>
-            <li key="n">N. - Nombre</li>
-            <li key="c">C. - Cantidad</li>
-            <li key="t">T. - Total</li>
-          </ul>
-        </div>
+        {cart.length > 0 && (
+          <div className="text-xs w-[30%] lg:hidden">
+            <ul>
+              <li key="n">N. - Nombre</li>
+              <li key="c">C. - Cantidad</li>
+              <li key="t">T. - Total</li>
+            </ul>
+          </div>
+        )}
 
         <div className=" text-center w-[32%] lg:w-full">
           {cart.length == 1 ? (
