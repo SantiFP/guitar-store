@@ -28,8 +28,11 @@ body {
   .itemDiv {
     @apply bg-white w-4/6 mx-auto text-black mt-12 lg:mt-0 lg:w-[94%];
   }
-  .cartIcon {
+  .cartCount {
     @apply bg-red-500 absolute -mt-12 rounded-full text-lg px-2 pointer-events-none;
+  }
+  .itemsNumber{
+    @apply rounded-full text-lg px-2 mr-1 text-white  bg-red-500
   }
   .logout {
     @apply hover:underline  w-fit px-4 bg-black mr-32 lg:mr-0 lg:mb-24 lg:fixed lg:pl-5;
@@ -39,5 +42,8 @@ body {
   }
   .sidebar {
     @apply flex flex-col items-center justify-center space-y-6 text-xl pl-16 lg:hidden;
+  }
+  .cartDiv{
+    @apply flex flex-row text-xl justify-between border-b-[0.09rem] pb-4 pt-2 border-black 
   }
 }

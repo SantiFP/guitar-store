@@ -95,7 +95,7 @@ const Header: React.FC<{ children: ReactNode; onShow: () => void }> = (
                   } lg:cursor-pointer lg:-mb-1`}
                 ></Image>
                 <p
-                  className={`cartIcon ${
+                  className={`cartCount ${
                     reducerState.animate && classes.cart
                   }`}
                 >

@@ -22,41 +22,91 @@ const Cart: React.FC<{ onClose: () => void }> = (props) => {
           />
         </div>
         <p className="text-center font-semibold w-11/12 text-lg">
-          {cart.length === 0 ? "EMPTY CART" : "YOUR CART"}
+          {!cart.length ? "CARRO VACÍO" : "TU CARRITO"}
         </p>
       </div>
+
+      <div className="flex flex-row">
+        <div className="text-xs w-[30%] lg:hidden">
+          <ul>
+            <li key="n">N. - Nombre</li>
+            <li key="c">C. - Cantidad</li>
+            <li key="t">T. - Total</li>
+          </ul>
+        </div>
+
+        <div className=" text-center w-[32%] lg:w-full">
+          {cart.length == 1 ? (
+            <div>
+              <span>Tienes </span>
+              <span className="itemsNumber">{cart.length}</span>
+              Item
+            </div>
+          ) : (
+            <div>
+              <span>Tienes </span>
+              <span className="itemsNumber">{cart.length}</span>
+              Items
+            </div>
+          )}
+        </div>
+      </div>
+
+      {cart.length > 0 && (
+        <>
+          <div className="hidden lg:flex cartDiv text-2xl">
+            <p className=" w-[75%]">Nombre</p>
+            <div className="flex flex-row lg:w-[25%]">
+              <p className=" lg:text-left lg:w-[42%]">Cantidad</p>
+              <p className=" lg:w-[42%] lg:text-left">Total</p>
+              <div className="lg:w-[16%]"></div>
+            </div>
+          </div>
+
+          <div className="cartDiv text-2xl lg:hidden  ">
+            <p className=" w-[60%]">N.</p>
+            <div className="flex flex-row w-[40%]">
+              <p className=" w-1/3 ">C.</p>
+              <p className=" w-1/3  ">T.</p>
+              <div className="w-1/3 "></div>
+            </div>
+          </div>
+        </>
+      )}
+
       {cart.map((el) => {
         return (
-          <div
-            key={el.id}
-            className="flex flex-row text-xl justify-between border-b-[0.09rem] pb-4 pt-2 border-black border-solid"
-          >
-            <p>{el.name}</p>
-            <div className="flex flex-row">
-              <p className="pr-3">X{el.amount}</p>
-              <p className="pr-4">${el.price}</p>
-              <img
-                onClick={() =>
-                  dispatch(
-                    cartActions.removeFromCart({
-                      name: el.name,
-                      id: el.id,
-                      amount: el.amount,
-                      price: el.price,
-                    })
-                  )
-                }
-                className="w-8 h-8"
-                src="/borrar.png"
-                alt="delete"
-              />
+          <div key={el.id} className="cartDiv">
+            <p className="w-[60%] lg:w-[75%]">{el.name}</p>
+            <div className="flex flex-row w-[40%] lg:w-[25%]">
+              <p className=" w-1/3 lg:w-[42%] text-right pr-5">X{el.amount}</p>
+              <p className=" w-1/3 lg:w-[42%]">${el.price}</p>
+              <div className=" w-1/3 flex  justify-end lg:justify-center lg:w-[16%] ">
+                <img
+                  className="w-8 h-8 lg:cursor-pointer"
+                  src="/borrar.png"
+                  alt="delete"
+                  onClick={() =>
+                    dispatch(
+                      cartActions.removeFromCart({
+                        name: el.name,
+                        id: el.id,
+                        amount: el.amount,
+                        price: el.price,
+                      })
+                    )
+                  }
+                />
+              </div>
             </div>
           </div>
         );
       })}
-      <div>
-        <p>Total: ${total}</p>
-      </div>
+      {cart.length > 0 && (
+        <div>
+          <p>Total: ${total}</p>
+        </div>
+      )}
     </Modal>
   );
 };
