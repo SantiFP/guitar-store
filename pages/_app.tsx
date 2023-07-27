@@ -7,7 +7,7 @@ import Cart from "@/components/Cart/Cart";
 import { useState } from "react";
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [cartIsShown, setIsCartShown] = useState(true);
+  const [cartIsShown, setIsCartShown] = useState(false);
 
   const showCart = () => {
     setIsCartShown(true);
