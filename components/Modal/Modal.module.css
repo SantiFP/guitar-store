@@ -10,10 +10,27 @@
 
 .modal {
   position: fixed;
-  top: 20vh;
   right: 5%;
   left: 5%;
   width: 90%;
+  top: 10%;
+  background-color: white;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  z-index: 10;
+  animation: slide-down 300ms ease-out forwards;
+  color: black;
+  overflow-y: auto; /* Habilita el scroll vertical cuando el contenido excede la altura del modal */
+  max-height: 90vh; /* Altura máxima del modal como 90% del viewport height */
+}
+
+.modalEmpty {
+  position: fixed;
+  width: 90%;
+  left: 5%;
+  right: 5%;
+  top: 35vh;
+  bottom: 45vh;
   background-color: white;
   padding: 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
@@ -27,6 +44,7 @@
     width: 75%;
     left: 12.5%;
     right: 12.5%;
+    top: 6%;
   }
 }
 

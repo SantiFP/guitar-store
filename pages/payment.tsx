@@ -1,9 +1,9 @@
+import PaymentForm from "@/components/Form/PaymentForm"
+
 const Payment = () => {
   return (
     <>
-      <div>
-        <p>Payment</p>
-      </div>
+      <PaymentForm />
     </>
   );
 };
