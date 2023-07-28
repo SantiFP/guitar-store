@@ -40,7 +40,7 @@ const PaymentForm = () => {
                 </label>
               </div>
 
-              <div className="cardDivs">
+              <div className="cardDivs pt-3">
                 <input
                   className="w-5"
                   type="radio"
