@@ -1,10 +1,6 @@
-import PaymentForm from "@/components/Form/PaymentForm"
+import PaymentForm from "@/components/Form/PaymentForm";
 
 const Payment = () => {
-  return (
-    <>
-      <PaymentForm />
-    </>
-  );
+  return <PaymentForm />;
 };
 export default Payment;
