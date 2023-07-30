@@ -34,8 +34,11 @@ body {
   .itemsNumber{
     @apply rounded-full text-lg px-2 mr-1 text-white  bg-red-500
   }
-  .logout {
+  .isLogged {
     @apply hover:underline  w-fit px-4 mr-32 lg:mr-0 lg:mb-24 lg:absolute lg:pl-5;
+  }
+  .loggedDiv{
+    @apply bg-black rounded-[10rem] px-2 py-3 fixed z-10
   }
   .headLg {
     @apply hidden lg:flex lg:flex-row lg:justify-center lg:pl-24 lg:pt-12 lg:space-x-20 lg:w-[92%] lg:text-xl;
@@ -75,5 +78,14 @@ body {
   }
   .buyButton{
     @apply rounded-full bg-zinc-900 text-white py-3 px-12 text-xl
+  }
+  .input{
+    @apply py-3 pl-3 w-5/6 mx-auto outline-none lg:w-2/5
+  }
+  .formDiv{
+    @apply text-black flex flex-col space-y-9 h-[70vh] mt-4 justify-center
+  }
+  .formButton{
+    @apply bg-zinc-800 text-white px-5 py-2  rounded-3xl
   }
 }
