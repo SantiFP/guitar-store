@@ -51,7 +51,7 @@ const RegisterForm = () => {
     console.log("registro ok");
   };
 
-  const emailIsOK = email.trim().includes(".");
+  const emailIsOK = email.trim().includes(".") && email.trim().includes("@");
   const nameIsOK = name.trim().length >= 3;
   const passwordIsOK =
     /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*\.)[A-Za-z\d.]{4,}$/.test(password.trim());
