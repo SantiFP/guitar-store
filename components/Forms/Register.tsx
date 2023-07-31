@@ -167,7 +167,7 @@ const RegisterForm = () => {
           disabled={!completed}
           className={
             !completed
-              ? "formButton opacity-60 cursor-not-allowed"
+              ? "formButton opacity-60 pointer-events-none"
               : "formButton"
           }
         >
