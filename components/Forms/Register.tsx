@@ -45,6 +45,7 @@ const RegisterForm = () => {
   const [formState, dispatch] = useReducer(reducer, initial);
   const [completed, setCompleted] = useState(false);
   const { name, email, password, confirmPassword } = formState;
+  const {input1Touch,input2Touch,input3Touch,input4Touch} = isInitial
 
   const registerHandler = (e: React.FormEvent) => {
     e.preventDefault();
@@ -54,15 +55,23 @@ const RegisterForm = () => {
   const emailIsOK = email.trim().includes(".") && email.trim().includes("@");
   const nameIsOK = name.trim().length >= 3;
   const passwordIsOK =
-    /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*\.)[A-Za-z\d.]{4,}$/.test(password.trim());
+    /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*\.)[A-Za-z\d.]{4,}$/.test(
+      password.trim()
+    );
   const confirmPasswordIsOk = password.trim() === confirmPassword.trim();
 
-  if (nameIsOK && emailIsOK && passwordIsOK && confirmPasswordIsOk && !completed) {
+  if (
+    nameIsOK &&
+    emailIsOK &&
+    passwordIsOK &&
+    confirmPasswordIsOk &&
+    !completed
+  ) {
     setCompleted(true);
   }
 
   if (
-    (!nameIsOK || !emailIsOK || !passwordIsOK || !confirmPasswordIsOk ) &&
+    (!nameIsOK || !emailIsOK || !passwordIsOK || !confirmPasswordIsOk) &&
     completed
   ) {
     setCompleted(false);
@@ -78,15 +87,17 @@ const RegisterForm = () => {
         onChange={(e) => {
           dispatch({ type: "name", payload: e.target?.value });
         }}
-        className="input"
+        className={input1Touch && !nameIsOK ? 'badInput' : 'input'}
         type="text"
         placeholder="Nombre de usuario"
         required
       />
-      {isInitial.input1Touch && !nameIsOK && (
-        <p className="text-red-500 absolute top-[9.6rem] text-xs px-3 py-1 bg-white left-16 ">
+      {input1Touch && !nameIsOK ? (
+        <p className="text-red-500 text-xs px-3 py-1 w-3/4 mx-auto bg-white lg:w-[35%]">
           El nombre debe tener al menos 3 caractéres
         </p>
+      ) : (
+        <p className="h-[4.7%]"></p>
       )}
       <input
         onBlur={(e) => {
@@ -96,15 +107,17 @@ const RegisterForm = () => {
         onChange={(e) => {
           dispatch({ type: "email", payload: e.target?.value });
         }}
-        className="input"
+        className={input2Touch && !emailIsOK ? 'badInput' : 'input'}
         type="email"
         placeholder="Email"
         required
       />
-      {isInitial.input2Touch && !emailIsOK && (
-        <p className="text-red-500 absolute top-[14.85rem] text-xs px-3 py-1 bg-white left-16 ">
+      {input2Touch && !emailIsOK ? (
+        <p className="text-red-500 text-xs px-3 py-1 w-3/4 mx-auto bg-white lg:w-[35%]">
           El email debe contener un punto y un arroba
         </p>
+      ) : (
+        <p className="h-[4.7%]"></p>
       )}
       <input
         onBlur={(e) => {
@@ -114,16 +127,18 @@ const RegisterForm = () => {
         onChange={(e) => {
           dispatch({ type: "password", payload: e.target?.value });
         }}
-        className="input"
+        className={input3Touch && !passwordIsOK ? 'badInput' : 'input'}
         type="password"
         placeholder="Contraseña"
         required
       />
-      {isInitial.input3Touch && !passwordIsOK && (
-        <p className="text-red-500 absolute top-[20.1rem] text-xs px-3 py-1 bg-white left-16 ">
+      {input3Touch && !passwordIsOK ? (
+        <p className="text-red-500 text-xs px-3 py-1 w-3/4 mx-auto bg-white lg:w-[35%]">
           La contraseña debe contener al menos 4 caractéres,una mayúscula,una
           minúscula,un punto y un número
         </p>
+      ) : (
+        <p className="h-[4.7%]"></p>
       )}
 
       <input
@@ -134,18 +149,20 @@ const RegisterForm = () => {
         onChange={(e) => {
           dispatch({ type: "confirmPassword", payload: e.target?.value });
         }}
-        className="input"
+        className={input4Touch && !confirmPasswordIsOk ? 'badInput' : 'input'}
         type="password"
         placeholder="Repetir contraseña"
         required
       />
-      {isInitial.input4Touch && !confirmPasswordIsOk && (
-        <p className="text-red-500 absolute top-[25.4rem] text-xs px-3 py-1 bg-white left-16 ">
+      {input4Touch && !confirmPasswordIsOk ? (
+        <p className="text-red-500 text-xs px-3 py-1 w-3/4 mx-auto bg-white lg:w-[35%]">
           Las contraseñas no coinciden
         </p>
+      ) : (
+        <p className="h-[4.7%]"></p>
       )}
 
-      <div className="text-center pt-6 text-xl">
+      <div className="text-center pt-4 text-xl">
         <button
           disabled={!completed}
           className={

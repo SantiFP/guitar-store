@@ -82,8 +82,11 @@ body {
   .input{
     @apply py-3 pl-3 w-5/6 mx-auto outline-none lg:w-2/5
   }
+  .badInput{
+    @apply py-3 pl-3 w-5/6 mx-auto outline-none border-red-500 border-2 border-solid lg:w-2/5
+  }
   .formDiv{
-    @apply text-black flex flex-col space-y-9 h-[70vh] mt-4 justify-center
+    @apply text-black flex flex-col space-y-2 h-[70vh] mt-12 justify-center lg:mt-4
   }
   .formButton{
     @apply bg-zinc-800 text-white px-5 py-2  rounded-3xl
