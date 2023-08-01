@@ -28,17 +28,17 @@ const Input = (props: Props) => {
         setInputsObject((prevState: {}) => {
           return { ...prevState, [`${touchedInput}`]: true };
         });
-        if (touchedInput === "input3Touch") {
+        if (touchedInput === "input3Touched") {
           setLevels(true);
           setInputsObject((prevState: {}) => {
             return { ...prevState, [`${touchedInput}`]: false };
           });
         }
-        touchedInput === "input3Touch" && setLevels(false);
+        touchedInput === "input3Touched" && setLevels(false);
       }}
       onChange={(e) => {
         dispatch({ type: type, payload: e.target?.value });
-        if (touchedInput === "input3Touch") {
+        if (touchedInput === "input3Touched") {
           setLevels(true);
           setInputsObject((prevState: {}) => {
             return { ...prevState, [`${touchedInput}`]: true };

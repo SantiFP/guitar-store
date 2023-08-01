@@ -94,7 +94,7 @@ const RegisterForm = () => {
       <Input
         dispatch={dispatch}
         setInputsObject={setInputsObject}
-        touchedInput={"input1Touch"}
+        touchedInput="input1Touched"
         type="name"
         inputType="text"
         placeholder="Nombre de usuario"
@@ -113,7 +113,7 @@ const RegisterForm = () => {
       <Input
         dispatch={dispatch}
         setInputsObject={setInputsObject}
-        touchedInput={"input2Touch"}
+        touchedInput="input2Touched"
         type="email"
         inputType="email"
         placeholder="Email"
@@ -134,7 +134,7 @@ const RegisterForm = () => {
       <Input
         dispatch={dispatch}
         setInputsObject={setInputsObject}
-        touchedInput="input3Touch"
+        touchedInput="input3Touched"
         type="password"
         inputType="password"
         placeholder="Contraseña"
@@ -161,7 +161,7 @@ const RegisterForm = () => {
       <Input
         dispatch={dispatch}
         setInputsObject={setInputsObject}
-        touchedInput={"input4Touch"}
+        touchedInput={"input4Touched"}
         type="confirmPassword"
         inputType="password"
         placeholder="Confirmar contraseña"
