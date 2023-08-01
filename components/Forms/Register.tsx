@@ -1,5 +1,6 @@
-import React, { useReducer,  useState } from "react";
-import PasswordLevels from "./PasswordLevels";
+import React, { useReducer, useState } from "react";
+import PasswordLevels, { LevelPrompt } from "./PasswordLevels";
+import Input from "./Input";
 interface Form {
   name: string;
   email: string;
@@ -39,14 +40,14 @@ const RegisterForm = () => {
   const [completed, setCompleted] = useState(false);
   const [levels, setLevels] = useState(false);
   const [inputsObject, setInputsObject] = useState({
-    input1Touch: false,
-    input2Touch: false,
-    input3Touch: false,
-    input4Touch: false,
+    input1Touched: false,
+    input2Touched: false,
+    input3Touched: false,
+    input4Touched: false,
   });
 
   const { name, email, password, confirmPassword } = formState;
-  const { input1Touch, input2Touch, input3Touch, input4Touch } = inputsObject;
+  const { input1Touched, input2Touched, input3Touched, input4Touched } = inputsObject;
 
   const registerHandler = (e: React.FormEvent) => {
     e.preventDefault();
@@ -87,22 +88,20 @@ const RegisterForm = () => {
 
   return (
     <form onSubmit={registerHandler} className="formDiv">
-      
       <PasswordLevels levels={levels} />
+
       {/* //////////////////////////// INPUT USERNAME ///////////////////////////////////////////// */}
-      <input
-        onBlur={(e) => {
-          dispatch({ type: "name", payload: e.target?.value });
-          setInputsObject({ ...inputsObject, input1Touch: true });
-        }}
-        onChange={(e) => {
-          dispatch({ type: "name", payload: e.target?.value });
-        }}
-        className={input1Touch && !nameIsOK ? "badInput" : "input"}
-        type="text"
+      <Input
+        dispatch={dispatch}
+        setInputsObject={setInputsObject}
+        touchedInput={"input1Touch"}
+        type="name"
+        inputType="text"
         placeholder="Nombre de usuario"
+        setLevels={setLevels}
+        className={input1Touched && !emailIsOK ? "input border-red-500" : "input"}
       />
-      {input1Touch && !nameIsOK ? (
+      {input1Touched && !nameIsOK ? (
         <p className="warning text-red-500  border-red-500">
           El nombre debe tener al menos 3 caractéres
         </p>
@@ -111,19 +110,18 @@ const RegisterForm = () => {
       )}
 
       {/* /////////////////////////// INPUT EMAIL //////////////////////////////////////////////// */}
-      <input
-        onBlur={(e) => {
-          dispatch({ type: "email", payload: e.target?.value });
-          setInputsObject({ ...inputsObject, input2Touch: true });
-        }}
-        onChange={(e) => {
-          dispatch({ type: "email", payload: e.target?.value });
-        }}
-        className={input2Touch && !emailIsOK ? "badInput" : "input"}
+      <Input
+        dispatch={dispatch}
+        setInputsObject={setInputsObject}
+        touchedInput={"input2Touch"}
         type="email"
+        inputType="email"
         placeholder="Email"
+        setLevels={setLevels}
+        className={input2Touched && !emailIsOK ? "input border-red-500" : "input"}
       />
-      {input2Touch && !emailIsOK ? (
+
+      {input2Touched && !emailIsOK ? (
         <p className="warning text-red-500  border-red-500">
           El email debe contener un punto y un arroba
         </p>
@@ -132,19 +130,17 @@ const RegisterForm = () => {
       )}
 
       {/* //////////////////////////////// INPUT PASSWORD ////////////////////////////////////////////// */}
-      <input
-        onBlur={(e) => {
-          dispatch({ type: "password", payload: e.target?.value });
-          setInputsObject({ ...inputsObject, input3Touch: true });
-          setLevels(false);
-        }}
-        onChange={(e) => {
-          dispatch({ type: "password", payload: e.target?.value });
-          setInputsObject({ ...inputsObject, input3Touch: true });
-          setLevels(true);
-        }}
+
+      <Input
+        dispatch={dispatch}
+        setInputsObject={setInputsObject}
+        touchedInput="input3Touch"
+        type="password"
+        inputType="password"
+        placeholder="Contraseña"
+        setLevels={setLevels}
         className={
-          input3Touch
+          input3Touched
             ? `input ${!passwordIsOK && !midPassword && "border-red-500"} ${
                 midPassword
                   ? "border-yellow-400"
@@ -152,55 +148,30 @@ const RegisterForm = () => {
               }`
             : "input"
         }
-        type="password"
-        placeholder="Contraseña"
       />
-      {input3Touch ? (
-        <div
-          className={`warning ${
-            !passwordIsOK && !midPassword && "border-red-500"
-          } ${
-            midPassword
-              ? "border-yellow-400"
-              : passwordIsOK && "border-green-600"
-          } `}
-        >
-          <div
-            className={`flex flex-row space-x-2 ${
-              !passwordIsOK && !midPassword && "text-red-500"
-            } ${
-              midPassword ? "text-yellow-400" : passwordIsOK && "text-green-600"
-            }`}
-          >
-            <p>Seguridad</p>
-            <span
-              className={`w-2 h-2 rounded-full mt-1 ${
-                !passwordIsOK && !midPassword && "bg-red-500"
-              } ${
-                midPassword ? "bg-yellow-400" : passwordIsOK && " bg-green-600"
-              }  `}
-            ></span>
-            <p> {midPassword ? "media" : passwordIsOK ? "alta" : "baja"}</p>
-          </div>
-        </div>
+
+      {input3Touched ? (
+        <LevelPrompt midPassword={midPassword} passwordIsOK={passwordIsOK} />
       ) : (
         <p className="h-[5.4%]"></p>
       )}
 
       {/* /////////////////////////////  INPUT CONFIRMAR CONTRASEÑA /////////////////////////////////////// */}
-      <input
-        onBlur={(e) => {
-          dispatch({ type: "confirmPassword", payload: e.target?.value });
-          setInputsObject({ ...inputsObject, input4Touch: true });
-        }}
-        onChange={(e) => {
-          dispatch({ type: "confirmPassword", payload: e.target?.value });
-        }}
-        className={input4Touch && !confirmPasswordIsOk ? "badInput" : "input"}
-        type="password"
-        placeholder="Repetir contraseña"
+
+      <Input
+        dispatch={dispatch}
+        setInputsObject={setInputsObject}
+        touchedInput={"input4Touch"}
+        type="confirmPassword"
+        inputType="password"
+        placeholder="Confirmar contraseña"
+        setLevels={setLevels}
+        className={
+          input4Touched && !confirmPasswordIsOk ? "input border-red-500" : "input"
+        }
       />
-      {input4Touch && !confirmPasswordIsOk ? (
+
+      {input4Touched && !confirmPasswordIsOk ? (
         <p className="warning border-red-500 text-red-500">
           Las contraseñas no coinciden
         </p>

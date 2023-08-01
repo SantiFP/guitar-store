@@ -1,6 +1,6 @@
 import { CSSTransition } from "react-transition-group";
-import classes from "./Register.module.css";
 import { useRef } from "react";
+import classes from "./Register.module.css";
 
 const PasswordLevels = (props: { levels: boolean }) => {
   const nodeRef = useRef<HTMLDivElement>(null);
@@ -50,4 +50,39 @@ const PasswordLevels = (props: { levels: boolean }) => {
     </CSSTransition>
   );
 };
+
+export const LevelPrompt = (props:{
+  passwordIsOK : boolean,
+  midPassword: boolean,
+}) => {
+  const {passwordIsOK,midPassword} = props
+  return (
+    <div
+      className={`warning ${
+        !passwordIsOK && !midPassword && "border-red-500"
+      } ${
+        midPassword ? "border-yellow-400" : passwordIsOK && "border-green-600"
+      } `}
+    >
+      <div
+        className={`flex flex-row space-x-2 ${
+          !passwordIsOK && !midPassword && "text-red-500"
+        } ${
+          midPassword ? "text-yellow-400" : passwordIsOK && "text-green-600"
+        }`}
+      >
+        <p>Seguridad</p>
+        <span
+          className={`w-2 h-2 rounded-full mt-1 ${
+            !passwordIsOK && !midPassword && "bg-red-500"
+          } ${
+            midPassword ? "bg-yellow-400" : passwordIsOK && " bg-green-600"
+          }  `}
+        ></span>
+        <p> {midPassword ? "media" : passwordIsOK ? "alta" : "baja"}</p>
+      </div>
+    </div>
+  );
+};
+
 export default PasswordLevels;
