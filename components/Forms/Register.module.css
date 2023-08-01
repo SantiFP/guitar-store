@@ -1,0 +1,24 @@
+.enterActive{
+    animation: entering 0.5s ease-in-out;
+}
+.exitActive{
+    animation: exiting 0.5s ease-in-out forwards;
+}
+
+@keyframes entering {
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+
+@keyframes exiting {
+    from{
+        opacity: 1;
+    }
+    to{
+        opacity: 0;
+    }
+}

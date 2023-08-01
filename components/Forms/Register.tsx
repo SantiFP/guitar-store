@@ -1,5 +1,5 @@
-import React, { useReducer, useState } from "react";
-
+import React, { useReducer,  useState } from "react";
+import PasswordLevels from "./PasswordLevels";
 interface Form {
   name: string;
   email: string;
@@ -12,7 +12,7 @@ interface ActionType {
   payload?: any;
 }
 
-const initial: Form = {
+const initialFormState: Form = {
   name: "",
   email: "",
   password: "",
@@ -34,30 +34,38 @@ const reducer = (state: Form, action: ActionType) => {
   }
 };
 
-let isInitial = {
-  input1Touch: false,
-  input2Touch: false,
-  input3Touch: false,
-  input4Touch: false,
-};
-
 const RegisterForm = () => {
-  const [formState, dispatch] = useReducer(reducer, initial);
+  const [formState, dispatch] = useReducer(reducer, initialFormState);
   const [completed, setCompleted] = useState(false);
+  const [levels, setLevels] = useState(false);
+  const [inputsObject, setInputsObject] = useState({
+    input1Touch: false,
+    input2Touch: false,
+    input3Touch: false,
+    input4Touch: false,
+  });
+
   const { name, email, password, confirmPassword } = formState;
-  const {input1Touch,input2Touch,input3Touch,input4Touch} = isInitial
+  const { input1Touch, input2Touch, input3Touch, input4Touch } = inputsObject;
 
   const registerHandler = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!completed) {
+      return;
+    }
     console.log("registro ok");
   };
 
   const emailIsOK = email.trim().includes(".") && email.trim().includes("@");
   const nameIsOK = name.trim().length >= 3;
   const passwordIsOK =
-    /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*\.)[A-Za-z\d.]{4,}$/.test(
+    /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[/*.])[\w/*\.]{4,}$/.test(
       password.trim()
     );
+  const midPassword =
+    (/^(?=.*[a-z])(?=.*\d)[A-Za-z\d.]{4,}$/.test(password.trim()) &&
+      !passwordIsOK) ||
+    (password.length > 5 && !passwordIsOK);
   const confirmPasswordIsOk = password.trim() === confirmPassword.trim();
 
   if (
@@ -79,95 +87,132 @@ const RegisterForm = () => {
 
   return (
     <form onSubmit={registerHandler} className="formDiv">
+      
+      <PasswordLevels levels={levels} />
+      {/* //////////////////////////// INPUT USERNAME ///////////////////////////////////////////// */}
       <input
         onBlur={(e) => {
           dispatch({ type: "name", payload: e.target?.value });
-          isInitial.input1Touch = true;
+          setInputsObject({ ...inputsObject, input1Touch: true });
         }}
         onChange={(e) => {
           dispatch({ type: "name", payload: e.target?.value });
         }}
-        className={input1Touch && !nameIsOK ? 'badInput' : 'input'}
+        className={input1Touch && !nameIsOK ? "badInput" : "input"}
         type="text"
         placeholder="Nombre de usuario"
-        required
       />
       {input1Touch && !nameIsOK ? (
-        <p className="text-red-500 text-xs px-3 py-1 w-3/4 mx-auto bg-white lg:w-[35%]">
+        <p className="warning text-red-500  border-red-500">
           El nombre debe tener al menos 3 caractéres
         </p>
       ) : (
-        <p className="h-[4.7%]"></p>
+        <p className="h-[5.4%]"></p>
       )}
+
+      {/* /////////////////////////// INPUT EMAIL //////////////////////////////////////////////// */}
       <input
         onBlur={(e) => {
           dispatch({ type: "email", payload: e.target?.value });
-          isInitial.input2Touch = true;
+          setInputsObject({ ...inputsObject, input2Touch: true });
         }}
         onChange={(e) => {
           dispatch({ type: "email", payload: e.target?.value });
         }}
-        className={input2Touch && !emailIsOK ? 'badInput' : 'input'}
+        className={input2Touch && !emailIsOK ? "badInput" : "input"}
         type="email"
         placeholder="Email"
-        required
       />
       {input2Touch && !emailIsOK ? (
-        <p className="text-red-500 text-xs px-3 py-1 w-3/4 mx-auto bg-white lg:w-[35%]">
+        <p className="warning text-red-500  border-red-500">
           El email debe contener un punto y un arroba
         </p>
       ) : (
-        <p className="h-[4.7%]"></p>
-      )}
-      <input
-        onBlur={(e) => {
-          dispatch({ type: "password", payload: e.target?.value });
-          isInitial.input3Touch = true;
-        }}
-        onChange={(e) => {
-          dispatch({ type: "password", payload: e.target?.value });
-        }}
-        className={input3Touch && !passwordIsOK ? 'badInput' : 'input'}
-        type="password"
-        placeholder="Contraseña"
-        required
-      />
-      {input3Touch && !passwordIsOK ? (
-        <p className="text-red-500 text-xs px-3 py-1 w-3/4 mx-auto bg-white lg:w-[35%]">
-          La contraseña debe contener al menos 4 caractéres,una mayúscula,una
-          minúscula,un punto y un número
-        </p>
-      ) : (
-        <p className="h-[4.7%]"></p>
+        <p className="h-[5.4%]"></p>
       )}
 
+      {/* //////////////////////////////// INPUT PASSWORD ////////////////////////////////////////////// */}
+      <input
+        onBlur={(e) => {
+          dispatch({ type: "password", payload: e.target?.value });
+          setInputsObject({ ...inputsObject, input3Touch: true });
+          setLevels(false);
+        }}
+        onChange={(e) => {
+          dispatch({ type: "password", payload: e.target?.value });
+          setInputsObject({ ...inputsObject, input3Touch: true });
+          setLevels(true);
+        }}
+        className={
+          input3Touch
+            ? `input ${!passwordIsOK && !midPassword && "border-red-500"} ${
+                midPassword
+                  ? "border-yellow-400"
+                  : passwordIsOK && "border-green-600"
+              }`
+            : "input"
+        }
+        type="password"
+        placeholder="Contraseña"
+      />
+      {input3Touch ? (
+        <div
+          className={`warning ${
+            !passwordIsOK && !midPassword && "border-red-500"
+          } ${
+            midPassword
+              ? "border-yellow-400"
+              : passwordIsOK && "border-green-600"
+          } `}
+        >
+          <div
+            className={`flex flex-row space-x-2 ${
+              !passwordIsOK && !midPassword && "text-red-500"
+            } ${
+              midPassword ? "text-yellow-400" : passwordIsOK && "text-green-600"
+            }`}
+          >
+            <p>Seguridad</p>
+            <span
+              className={`w-2 h-2 rounded-full mt-1 ${
+                !passwordIsOK && !midPassword && "bg-red-500"
+              } ${
+                midPassword ? "bg-yellow-400" : passwordIsOK && " bg-green-600"
+              }  `}
+            ></span>
+            <p> {midPassword ? "media" : passwordIsOK ? "alta" : "baja"}</p>
+          </div>
+        </div>
+      ) : (
+        <p className="h-[5.4%]"></p>
+      )}
+
+      {/* /////////////////////////////  INPUT CONFIRMAR CONTRASEÑA /////////////////////////////////////// */}
       <input
         onBlur={(e) => {
           dispatch({ type: "confirmPassword", payload: e.target?.value });
-          isInitial.input4Touch = true;
+          setInputsObject({ ...inputsObject, input4Touch: true });
         }}
         onChange={(e) => {
           dispatch({ type: "confirmPassword", payload: e.target?.value });
         }}
-        className={input4Touch && !confirmPasswordIsOk ? 'badInput' : 'input'}
+        className={input4Touch && !confirmPasswordIsOk ? "badInput" : "input"}
         type="password"
         placeholder="Repetir contraseña"
-        required
       />
       {input4Touch && !confirmPasswordIsOk ? (
-        <p className="text-red-500 text-xs px-3 py-1 w-3/4 mx-auto bg-white lg:w-[35%]">
+        <p className="warning border-red-500 text-red-500">
           Las contraseñas no coinciden
         </p>
       ) : (
-        <p className="h-[4.7%]"></p>
+        <p className="h-[5.4%]"></p>
       )}
 
       <div className="text-center pt-4 text-xl">
         <button
-          disabled={!completed}
           className={
             !completed
-              ? "formButton opacity-60 pointer-events-none"
+              ? "formButton opacity-60 cursor-not-allowed "
               : "formButton"
           }
         >

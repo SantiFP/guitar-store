@@ -72,12 +72,12 @@ const Header: React.FC<{ children: ReactNode; onShow: () => void }> = (
               {!logged && (
                 <div className="flex flex-col justify-center items-center space-y-1 mt-1 lg:-mt-6">
                   <Link href="/register">
-                    <p className="hover:underline lg:cursor-pointer">
+                    <p className="hover:underline cursor-auto lg:cursor-pointer">
                       Registro
                     </p>
                   </Link>
                   <Link href="/login">
-                    <p className="hover:underline lg:cursor-pointer">Login</p>
+                    <p className="hover:underline cursor-auto lg:cursor-pointer">Login</p>
                   </Link>
                 </div>
               )}
