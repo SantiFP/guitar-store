@@ -47,7 +47,8 @@ const RegisterForm = () => {
   });
 
   const { name, email, password, confirmPassword } = formState;
-  const { input1Touched, input2Touched, input3Touched, input4Touched } = inputsObject;
+  const { input1Touched, input2Touched, input3Touched, input4Touched } =
+    inputsObject;
 
   const registerHandler = (e: React.FormEvent) => {
     e.preventDefault();
@@ -99,7 +100,7 @@ const RegisterForm = () => {
         inputType="text"
         placeholder="Nombre de usuario"
         setLevels={setLevels}
-        className={input1Touched && !emailIsOK ? "input border-red-500" : "input"}
+        className={input1Touched && !name ? "input border-red-500" : "input"}
       />
       {input1Touched && !nameIsOK ? (
         <p className="warning text-red-500  border-red-500">
@@ -118,7 +119,9 @@ const RegisterForm = () => {
         inputType="email"
         placeholder="Email"
         setLevels={setLevels}
-        className={input2Touched && !emailIsOK ? "input border-red-500" : "input"}
+        className={
+          input2Touched && !emailIsOK ? "input border-red-500" : "input"
+        }
       />
 
       {input2Touched && !emailIsOK ? (
@@ -167,7 +170,9 @@ const RegisterForm = () => {
         placeholder="Confirmar contraseña"
         setLevels={setLevels}
         className={
-          input4Touched && !confirmPasswordIsOk ? "input border-red-500" : "input"
+          input4Touched && !confirmPasswordIsOk
+            ? "input border-red-500"
+            : "input"
         }
       />
 
