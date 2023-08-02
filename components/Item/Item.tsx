@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { ItemObj } from "@/pages";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store";
 import { AppDispatch } from "@/store";
 import classes from "./Item.module.css";
 import { cartActions } from "@/store/cart";
 import { handleAnimation } from "@/store/handleAnimation";
+import { ItemObj } from "@/Types/types";
 
 const Item = (props: ItemObj) => {
   const [amount, setAmount] = useState<number>(1);

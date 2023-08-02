@@ -1,17 +1,9 @@
 import React, { useReducer, useState } from "react";
-import PasswordLevels, { LevelPrompt } from "./PasswordLevels";
-import Input from "./Input";
-interface Form {
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
-
-interface ActionType {
-  type: string;
-  payload?: any;
-}
+import PasswordLevels, { LevelPrompt } from "../Warnings/PasswordLevels";
+import Input from "../Input/Input";
+import Warning from "../Warnings/Warning";
+import Checks from "./Checks";
+import { Form,ActionType } from "@/Types/types";
 
 const initialFormState: Form = {
   name: "",
@@ -37,7 +29,6 @@ const reducer = (state: Form, action: ActionType) => {
 
 const RegisterForm = () => {
   const [formState, dispatch] = useReducer(reducer, initialFormState);
-  const [completed, setCompleted] = useState(false);
   const [levels, setLevels] = useState(false);
   const [inputsObject, setInputsObject] = useState({
     input1Touched: false,
@@ -58,34 +49,14 @@ const RegisterForm = () => {
     console.log("registro ok");
   };
 
-  const emailIsOK = email.trim().includes(".") && email.trim().includes("@");
-  const nameIsOK = name.trim().length >= 3;
-  const passwordIsOK =
-    /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[/*.])[\w/*\.]{4,}$/.test(
-      password.trim()
-    );
-  const midPassword =
-    (/^(?=.*[a-z])(?=.*\d)[A-Za-z\d.]{4,}$/.test(password.trim()) &&
-      !passwordIsOK) ||
-    (password.length > 5 && !passwordIsOK);
-  const confirmPasswordIsOk = password.trim() === confirmPassword.trim();
-
-  if (
-    nameIsOK &&
-    emailIsOK &&
-    passwordIsOK &&
-    confirmPasswordIsOk &&
-    !completed
-  ) {
-    setCompleted(true);
-  }
-
-  if (
-    (!nameIsOK || !emailIsOK || !passwordIsOK || !confirmPasswordIsOk) &&
-    completed
-  ) {
-    setCompleted(false);
-  }
+  const {
+    nameIsOK,
+    emailIsOK,
+    passwordIsOK,
+    midPassword,
+    confirmPasswordIsOk,
+    completed,
+  } = Checks(name, email, password, confirmPassword);
 
   return (
     <form onSubmit={registerHandler} className="formDiv">
@@ -100,15 +71,13 @@ const RegisterForm = () => {
         inputType="text"
         placeholder="Nombre de usuario"
         setLevels={setLevels}
-        className={input1Touched && !name ? "input border-red-500" : "input"}
+        className={
+          input1Touched && !nameIsOK ? "input border-red-500" : "input"
+        }
       />
-      {input1Touched && !nameIsOK ? (
-        <p className="warning text-red-500  border-red-500">
-          El nombre debe tener al menos 3 caractéres
-        </p>
-      ) : (
-        <p className="h-[5.4%]"></p>
-      )}
+      <Warning isTouched={input1Touched} isOk={nameIsOK}>
+        El nombre debe tener al menos 3 caracteres
+      </Warning>
 
       {/* /////////////////////////// INPUT EMAIL //////////////////////////////////////////////// */}
       <Input
@@ -124,13 +93,9 @@ const RegisterForm = () => {
         }
       />
 
-      {input2Touched && !emailIsOK ? (
-        <p className="warning text-red-500  border-red-500">
-          El email debe contener un punto y un arroba
-        </p>
-      ) : (
-        <p className="h-[5.4%]"></p>
-      )}
+      <Warning isTouched={input2Touched} isOk={emailIsOK}>
+        El email debe contener un punto y un arroba
+      </Warning>
 
       {/* //////////////////////////////// INPUT PASSWORD ////////////////////////////////////////////// */}
 
@@ -176,13 +141,9 @@ const RegisterForm = () => {
         }
       />
 
-      {input4Touched && !confirmPasswordIsOk ? (
-        <p className="warning border-red-500 text-red-500">
-          Las contraseñas no coinciden
-        </p>
-      ) : (
-        <p className="h-[5.4%]"></p>
-      )}
+      <Warning isTouched={input4Touched} isOk={confirmPasswordIsOk}>
+        Las contraseñas no coinciden
+      </Warning>
 
       <div className="text-center pt-4 text-xl">
         <button

@@ -1,15 +1,7 @@
 import Item from "@/components/Item/Item";
 import fs from "fs";
 import path from "path";
-
-
-export interface ItemObj {
-  name: string;
-  id: number;
-  price: number;
-  img: string;
-  type: string;
-}
+import { ItemObj } from "@/Types/types";
 
 export default function Home(props: { data: ItemObj[] }) {
   const { data } = props;

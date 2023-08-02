@@ -7,15 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store";
 import { handleAnimation } from "@/store/handleAnimation";
 import Link from "next/link";
+import { ActionType,StateType } from "@/Types/types";
 
-type ActionType = {
-  type: string;
-  payload?: any;
-};
-
-type StateType = {
-  sideState: boolean;
-};
 
 const initialState: StateType = {
   sideState: false,

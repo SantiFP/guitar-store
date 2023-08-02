@@ -1,13 +1,4 @@
-interface Props {
-  dispatch: (action: { type: string; payload: string }) => void;
-  setInputsObject: (inputsObject: any) => void;
-  setLevels: (levels: boolean) => void;
-  touchedInput: string;
-  type: string;
-  placeholder: string;
-  inputType: string;
-  className: string;
-}
+import { Props } from "@/Types/types";
 
 const Input = (props: Props) => {
   const {

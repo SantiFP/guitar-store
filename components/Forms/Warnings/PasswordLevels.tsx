@@ -1,6 +1,6 @@
 import { CSSTransition } from "react-transition-group";
 import { useRef } from "react";
-import classes from "./Register.module.css";
+import classes from "./Password.module.css";
 
 const PasswordLevels = (props: { levels: boolean }) => {
   const nodeRef = useRef<HTMLDivElement>(null);

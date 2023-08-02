@@ -1,4 +1,4 @@
-import PaymentForm from "@/components/Forms/Payment";
+import PaymentForm from "@/components/Forms/Payment/Payment";
 
 const Payment = () => {
   return <PaymentForm />;
