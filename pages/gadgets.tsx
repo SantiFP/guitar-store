@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { ItemObj } from ".";
+import { ItemObj } from "@/Types/types";
 import Item from "@/components/Item/Item";
 
 const Gadgets = (props: { gadgets: ItemObj[] }) => {
