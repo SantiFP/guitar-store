@@ -1,14 +1,13 @@
 import Image from "next/image";
 import classes from "./Header.module.css";
 import { ReactNode, useEffect, useReducer } from "react";
-import { useRouter } from "next/router";
 import { Backdrop } from "../Modal/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store";
 import { handleAnimation } from "@/store/handleAnimation";
 import Link from "next/link";
-import { ActionType,StateType } from "@/Types/types";
-
+import { ActionType, StateType } from "@/Types/types";
+import Nav from "./Nav";
 
 const initialState: StateType = {
   sideState: false,
@@ -29,8 +28,6 @@ const Header: React.FC<{ children: ReactNode; onShow: () => void }> = (
   const cart = useSelector((state: RootState) => state.cart.cart);
   const { animationA } = useSelector((state: RootState) => state.animation);
   const logged = useSelector((state: RootState) => state.login.logged);
-
-  const { pathname } = useRouter();
 
   const closeBackdrop = () => {
     dispatch({ type: "sideState" });
@@ -70,7 +67,9 @@ const Header: React.FC<{ children: ReactNode; onShow: () => void }> = (
                     </p>
                   </Link>
                   <Link href="/login">
-                    <p className="hover:underline cursor-auto lg:cursor-pointer">Login</p>
+                    <p className="hover:underline cursor-auto lg:cursor-pointer">
+                      Login
+                    </p>
                   </Link>
                 </div>
               )}
@@ -97,85 +96,14 @@ const Header: React.FC<{ children: ReactNode; onShow: () => void }> = (
               )}
             </div>
 
-            <div className="headLg">
-              <Link
-                className={`${classes.link} ${
-                  pathname === "/" && `${classes.active} underline mt-1`
-                }`}
-                href="/"
-              >
-                Home
-              </Link>
-
-              <Link
-                className={`${classes.link} ${
-                  pathname === "/acoustics" &&
-                  `${classes.active} underline mt-1`
-                }`}
-                href="/acoustics"
-              >
-                Guitarras acústicas
-              </Link>
-              <Link
-                className={`${classes.link} ${
-                  pathname === "/electrics" &&
-                  `${classes.active} underline mt-1`
-                }`}
-                href="/electrics"
-              >
-                Guitarras eléctricas
-              </Link>
-              <Link
-                className={`${classes.link} ${
-                  pathname === "/gadgets" && `${classes.active} underline mt-1`
-                }`}
-                href="/gadgets"
-              >
-                Accesorios
-              </Link>
-            </div>
+            <Nav className="headLg" />
           </div>
         </div>
-
-        <div
+        <Nav
           className={` ${classes.sidebar} relative z-10 ${
             !reducerState.sideState && classes.closed
           } sidebar `}
-        >
-          <Link
-            className={`${classes.link} cursor-auto  ${
-              pathname === "/" && `${classes.active} underline`
-            } lg:cursor-pointer`}
-            href="/"
-          >
-            Home
-          </Link>
-          <Link
-            className={`${classes.link}  cursor-auto  ${
-              pathname === "/acoustics" && `${classes.active} underline`
-            } lg:cursor-pointer`}
-            href="/acoustics"
-          >
-            Guitarras acústicas
-          </Link>
-          <Link
-            className={`${classes.link} cursor-auto  ${
-              pathname === "/electrics" && `${classes.active} underline `
-            } lg:cursor-pointer`}
-            href="/electrics"
-          >
-            Guitarras eléctricas
-          </Link>
-
-          <Link
-            className={`${classes.link} cursor-auto ${
-              pathname === "/gadgets" && `${classes.active} underline`
-            } lg:cursor-pointer`}
-            href="/gadgets"
-          >
-            Accesorios
-          </Link>
-        </div>
+        />
       </div>
       {props.children}
     </>

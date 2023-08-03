@@ -46,6 +46,8 @@ const PasswordLevels = (props: { levels: boolean }) => {
             caracteres
           </p>
         </div>
+
+        <p className="text-black text-center pb-2">La contraseña debe tener al menos seguridad media para avanzar</p>
       </div>
     </CSSTransition>
   );
