@@ -2,6 +2,8 @@ import { useRef, useState } from "react";
 import { loginActions } from "@/store/login";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
+import { getCart } from "@/store/getCart";
+import { AppDispatch } from "@/store";
 
 const LoginForm = () => {
   const [nameInvalid, setNameInvalid] = useState<boolean>(false);
@@ -9,26 +11,30 @@ const LoginForm = () => {
   const [nameFromDb, setNameFromDb] = useState(true);
   const [passwordFromDb, setPasswordFromDb] = useState(true);
   const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
 
   const login = async (e: React.FormEvent) => {
     e.preventDefault();
-    const name = nameRef.current?.value;
-    const password = passwordRef.current?.value;
+    const name = nameRef.current?.value.trim();
+    const password = passwordRef.current?.value.trim();
     const nameLength = name && name.trim().length > 2;
     const passwordLength =
       password &&
       (/^(?=.*[a-z])(?=.*\d)[A-Za-z\d.]{4,}$/.test(password.trim()) ||
         password.trim().length > 5);
 
-    if (!nameLength || !passwordLength) {
-      !nameLength && setNameInvalid(true);
-      !passwordLength && setPasswordInvalid(true);
+    if (!nameLength) {
+      setNameInvalid(true);
       return;
     }
 
-    setNameInvalid(false);
+    if (!passwordLength) {
+      setPasswordInvalid(true);
+      setNameInvalid(false);
+      return;
+    }
+
     setPasswordInvalid(false);
 
     try {
@@ -36,23 +42,23 @@ const LoginForm = () => {
         "https://guitar-store-fa2db-default-rtdb.firebaseio.com/users.json"
       );
       const res = await req.json();
+      let existingName = false;
+      let existingPassword = false;
       for (const key in res) {
         const user = res[key];
         if (user.userName === name && user.password === password) {
           dispatch(loginActions.logIn({ name }));
+          dispatch(getCart(name))
           setLoading(true);
           router.replace("/");
-          break;
-        } else if (user.userName !== name) {
-          setNameFromDb(false);
-          setPasswordFromDb(true);
-          break;
-        } else if (user.password !== password) {
-          setPasswordFromDb(false);
-          setNameFromDb(true);
-          break;
+        } else if (user.userName === name) {
+          existingName = true;
+        } else if (user.password === password) {
+          existingPassword = true;
         }
       }
+      !existingName ? setNameFromDb(false) : setNameFromDb(true);
+      !existingPassword ? setPasswordFromDb(false) : setPasswordFromDb(true);
     } catch (err) {
       console.log(err);
     }

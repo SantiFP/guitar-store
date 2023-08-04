@@ -7,6 +7,7 @@ import { cartActions } from "@/store/cart";
 import { handleAnimation } from "@/store/handleAnimation";
 import classes from "./Cart.module.css";
 import Link from "next/link";
+import { useEffect } from "react";
 
 const Cart: React.FC<{ onClose: () => void }> = (props) => {
   const cart = useSelector((state: RootState) => state.cart.cart);
@@ -115,7 +116,9 @@ const Cart: React.FC<{ onClose: () => void }> = (props) => {
         <div className="text-center text-lg ml-auto pt-4">
           <p className="pr-4 text-right">Total a pagar: ${total}</p>
           <Link href="/payment">
-            <button onClick={props.onClose} className="buy">COMPRAR</button>
+            <button onClick={props.onClose} className="buy">
+              COMPRAR
+            </button>
           </Link>
         </div>
       )}

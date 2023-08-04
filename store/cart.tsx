@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-
 interface Items {
   name: string;
   price: number;
@@ -33,7 +32,6 @@ const cartSlice = createSlice({
     },
     removeFromCart(state, action) {
       let already = false;
-
       state.cart.map((el) => {
         if (el.name === action.payload.name) {
           if (el.amount === 1) return;
@@ -45,6 +43,9 @@ const cartSlice = createSlice({
       !already &&
         (state.cart = state.cart.filter((el) => el.id !== action.payload.id));
     },
+    initialCart(state,action){
+      state.cart = action.payload
+    }
   },
 });
 

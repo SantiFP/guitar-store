@@ -4,10 +4,11 @@ import Header from "@/components/Header/Header";
 import { Provider } from "react-redux";
 import { store } from "@/store";
 import Cart from "@/components/Cart/Cart";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [cartIsShown, setIsCartShown] = useState(false);
+  
 
   const showCart = () => {
     setIsCartShown(true);
@@ -25,3 +26,6 @@ export default function App({ Component, pageProps }: AppProps) {
     </Provider>
   );
 }
+
+
+
