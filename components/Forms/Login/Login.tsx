@@ -48,8 +48,10 @@ const LoginForm = () => {
         const user = res[key];
         if (user.userName === name && user.password === password) {
           dispatch(loginActions.logIn({ name }));
-          dispatch(getCart(name))
+          dispatch(getCart(name));
           setLoading(true);
+          localStorage.setItem("logged", "true");
+          localStorage.setItem("name", name);
           router.replace("/");
         } else if (user.userName === name) {
           existingName = true;

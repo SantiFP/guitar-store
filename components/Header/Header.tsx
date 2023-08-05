@@ -5,10 +5,10 @@ import { Backdrop } from "../Modal/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store";
 import { handleAnimation } from "@/store/handleAnimation";
-import Link from "next/link";
 import { ActionType, StateType } from "@/Types/types";
-import Nav from "./Nav";
 import { loginActions } from "@/store/login";
+import Link from "next/link";
+import Nav from "./Nav";
 
 const initialState: StateType = {
   sideState: false,
@@ -61,7 +61,11 @@ const Header: React.FC<{ children: ReactNode; onShow: () => void }> = (
             <div className="login-cart ">
               {logged && (
                 <p
-                  onClick={() => dispatchStore(loginActions.logOut())}
+                  onClick={() => {
+                    dispatchStore(loginActions.logOut());
+                    localStorage.removeItem("logged");
+                    localStorage.removeItem("name");
+                  }}
                   className="isLogged"
                 >
                   Logout

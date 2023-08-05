@@ -2,9 +2,13 @@ import Item from "@/components/Item/Item";
 import fs from "fs";
 import path from "path";
 import { ItemObj } from "@/Types/types";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
 
 export default function Home(props: { data: ItemObj[] }) {
   const { data } = props;
+  const logged = useSelector((state:RootState) => state.login );
+  console.log(logged);
   return (
     <>
       <div className="lg:flex lg:flex-row lg:w-11/12 lg:mx-auto lg:flex-wrap">
