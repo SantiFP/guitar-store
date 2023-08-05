@@ -16,6 +16,7 @@ const Gadgets = (props: { gadgets: ItemObj[] }) => {
               price={el.price}
               type={el.type}
               img={el.img}
+              amount={el.amount}
             />
           </div>
         ))}

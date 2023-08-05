@@ -20,6 +20,7 @@ const logSlice = createSlice({
     },
     logOut(state) {
       state.logged = false;
+      state.name = '';
     },
   },
 });
