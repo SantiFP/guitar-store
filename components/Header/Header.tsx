@@ -29,7 +29,7 @@ const Header: React.FC<{ children: ReactNode; onShow: () => void }> = (
   const cart = useSelector((state: RootState) => state.cart.cart);
   const { animationA } = useSelector((state: RootState) => state.animation);
   const logged = useSelector((state: RootState) => state.login.logged);
-  const [isLogged,setIsLogged] = useState('start')
+  const [isLogged, setIsLogged] = useState("start");
 
   const closeBackdrop = () => {
     dispatch({ type: "sideState" });
@@ -43,16 +43,13 @@ const Header: React.FC<{ children: ReactNode; onShow: () => void }> = (
   }, [cart]);
 
   useEffect(() => {
-     setIsLogged(localStorage.getItem("logged") || '');
+    setIsLogged(localStorage.getItem("logged") || "");
   }, [logged]);
-
-  console.log(logged);
-  console.log(isLogged);
 
   return (
     <>
       {reducerState.sideState && <Backdrop onClose={closeBackdrop} />}
-      <div className={logged ? "pb-8" : "-mb-1 lg:pb-4 lg:m-0"}>
+      <div className={logged ? "pb-6" : "-mb-1 lg:pb-8 lg:m-0"}>
         <div>
           <div>
             <Image
@@ -79,7 +76,7 @@ const Header: React.FC<{ children: ReactNode; onShow: () => void }> = (
                   Logout
                 </p>
               )}
-              {!logged && !isLogged && (
+              {!logged && !isLogged ? (
                 <div className="logAndReg">
                   <Link href="/register">
                     <p className="hover:underline cursor-auto lg:cursor-pointer">
@@ -92,10 +89,12 @@ const Header: React.FC<{ children: ReactNode; onShow: () => void }> = (
                     </p>
                   </Link>
                 </div>
+              ) : (
+                <div className="h-[5rem] -mb-7"></div>
               )}
 
-              {logged  && (
-                <div className="loggedDiv">
+              {logged && (
+                <div className="loggedDiv ">
                   <Image
                     alt="cart"
                     width={65}
