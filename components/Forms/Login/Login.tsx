@@ -46,7 +46,10 @@ const LoginForm = () => {
       let existingPassword = false;
       for (const key in res) {
         const user = res[key];
+        console.log("cava");
+        console.log(user);
         if (user.userName === name && user.password === password) {
+          console.log("csa");
           dispatch(loginActions.logIn({ name }));
           dispatch(getCart(name));
           setLoading(true);
@@ -55,7 +58,7 @@ const LoginForm = () => {
           router.replace("/");
         } else if (user.userName === name) {
           existingName = true;
-        } else if (user.password === password) {
+        } else if (user.password === password && user.name === name) {
           existingPassword = true;
         }
       }

@@ -29,7 +29,7 @@ const Header: React.FC<{ children: ReactNode; onShow: () => void }> = (
   const cart = useSelector((state: RootState) => state.cart.cart);
   const { animationA } = useSelector((state: RootState) => state.animation);
   const logged = useSelector((state: RootState) => state.login.logged);
-  const [isLogged, setIsLogged] = useState("start");
+  const [isLogged,setIsLogged] = useState('start')
 
   const closeBackdrop = () => {
     dispatch({ type: "sideState" });
@@ -43,8 +43,11 @@ const Header: React.FC<{ children: ReactNode; onShow: () => void }> = (
   }, [cart]);
 
   useEffect(() => {
-    setIsLogged(localStorage.getItem("logged") || "");
+     setIsLogged(localStorage.getItem("logged") || '');
   }, [logged]);
+
+  console.log(logged);
+  console.log(isLogged);
 
   return (
     <>
@@ -76,22 +79,22 @@ const Header: React.FC<{ children: ReactNode; onShow: () => void }> = (
                   Logout
                 </p>
               )}
-              {(!isLogged && !logged) && (
-                  <div className="logAndReg">
-                    <Link href="/register">
-                      <p className="hover:underline cursor-auto lg:cursor-pointer">
-                        Registro
-                      </p>
-                    </Link>
-                    <Link href="/login">
-                      <p className="hover:underline cursor-auto lg:cursor-pointer">
-                        Login
-                      </p>
-                    </Link>
-                  </div>
-                )}
+              {!logged && !isLogged && (
+                <div className="logAndReg">
+                  <Link href="/register">
+                    <p className="hover:underline cursor-auto lg:cursor-pointer">
+                      Registro
+                    </p>
+                  </Link>
+                  <Link href="/login">
+                    <p className="hover:underline cursor-auto lg:cursor-pointer">
+                      Login
+                    </p>
+                  </Link>
+                </div>
+              )}
 
-              {logged && (
+              {logged  && (
                 <div className="loggedDiv">
                   <Image
                     alt="cart"
