@@ -40,6 +40,7 @@ const RegisterForm = () => {
     input3Touched: false,
     input4Touched: false,
   });
+  const [userNameExists, setUserNameExists] = useState(false);
 
   const { name, email, password, confirmPassword } = formState;
   const { input1Touched, input2Touched, input3Touched, input4Touched } =
@@ -50,6 +51,28 @@ const RegisterForm = () => {
     if (!completed) {
       return;
     }
+
+    let checkUserName = false;
+    try {
+      const req = await fetch(
+        "https://guitar-store-fa2db-default-rtdb.firebaseio.com/users.json"
+      );
+      const res = await req.json();
+
+      for (const key in res) {
+        if (res[key].userName === name) {
+          checkUserName = true;
+          break;
+        }
+      }
+      if (checkUserName) {
+        setUserNameExists(true);
+        return;
+      }
+    } catch (err) {
+      console.log(err);
+    }
+
     try {
       setLoading(true);
 
@@ -69,13 +92,11 @@ const RegisterForm = () => {
           body: JSON.stringify(data),
         }
       );
-      router.push('/login')
+      router.push("/login");
     } catch (error) {
       setLoading(false);
       console.error("Error al enviar datos:", error);
     }
-
-    console.log("registro ok");
   };
 
   const {
@@ -111,11 +132,15 @@ const RegisterForm = () => {
             placeholder="Nombre de usuario"
             setLevels={setLevels}
             className={
-              input1Touched && !nameIsOK ? "input border-red-500" : "input"
+              input1Touched && (!nameIsOK || userNameExists)
+                ? "input border-red-500"
+                : "input"
             }
           />
-          <Warning isTouched={input1Touched} isOk={nameIsOK}>
-            El nombre debe tener al menos 3 caracteres
+          <Warning isTouched={input1Touched} isOk={nameIsOK && !userNameExists}>
+            {userNameExists
+              ? "El usuario ya existe"
+              : "El nombre de usuario debe tener al menos 3 caracteres"}
           </Warning>
 
           {/* /////////////////////////// INPUT EMAIL //////////////////////////////////////////////// */}

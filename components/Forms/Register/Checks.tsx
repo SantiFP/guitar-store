@@ -2,8 +2,9 @@ const Checks = (
   name: string,
   email: string,
   password: string,
-  confirmPassword: string,
+  confirmPassword: string
 ) => {
+  
   const nameIsOK = name.trim().length >= 3;
   const emailIsOK = email.trim().includes(".") && email.trim().includes("@");
   const passwordIsOK =
@@ -17,7 +18,10 @@ const Checks = (
   const confirmPasswordIsOk = password.trim() === confirmPassword.trim();
 
   const completed =
-    nameIsOK && emailIsOK && (passwordIsOK || midPassword) && confirmPasswordIsOk;
+    nameIsOK &&
+    emailIsOK &&
+    (passwordIsOK || midPassword) &&
+    confirmPasswordIsOk;
   return {
     emailIsOK,
     nameIsOK,
