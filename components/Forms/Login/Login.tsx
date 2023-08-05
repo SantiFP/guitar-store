@@ -16,8 +16,8 @@ const LoginForm = () => {
 
   const login = async (e: React.FormEvent) => {
     e.preventDefault();
-    const name = nameRef.current?.value.trim();
-    const password = passwordRef.current?.value.trim();
+    const name = nameRef.current?.value.trim().toLowerCase();
+    const password = passwordRef.current?.value.trim()
     const nameLength = name && name.trim().length > 2;
     const passwordLength =
       password &&

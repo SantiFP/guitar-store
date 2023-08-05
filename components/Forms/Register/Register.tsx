@@ -50,13 +50,11 @@ const RegisterForm = () => {
     if (!completed) {
       return;
     }
-
-
     try {
       setLoading(true);
 
       const data = {
-        userName: name,
+        userName: name.toLowerCase(),
         password: password,
         cart: [],
       };
