@@ -31,4 +31,5 @@ export interface ItemObj {
   price: number;
   img: string;
   type: string;
+  amount:number
 }

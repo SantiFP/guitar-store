@@ -6,6 +6,7 @@ import classes from "./Item.module.css";
 import { cartActions } from "@/store/cart";
 import { handleAnimation } from "@/store/handleAnimation";
 import { ItemObj } from "@/Types/types";
+import { addToDBCart } from "@/store/addAndRemoveHandlers";
 
 const Item = (props: ItemObj) => {
   const [amount, setAmount] = useState<number>(1);
@@ -13,71 +14,14 @@ const Item = (props: ItemObj) => {
   const { animationB } = useSelector((state: RootState) => state.animation);
   const loginState = useSelector((state: RootState) => state.login);
   const cart = useSelector((state: RootState) => state.cart.cart);
+  const [isSendingRequest, setIsSendingRequest] = useState(false);
 
-  const { name, logged } = loginState;
+  const { name: loggedName, logged } = loginState;
+  const { name, price, type, id, img } = props;
 
   const amountHandler = (type: string) => {
     type === "+" && setAmount(amount + 1);
     type === "-" && setAmount(amount === 1 ? amount : amount - 1);
-  };
-
-  const addToCart = async () => {
-    dispatch(
-      cartActions.addToCart({
-        name: props.name,
-        price: props.price * amount,
-        id: props.id,
-        img: props.img,
-        amount,
-      })
-    );
-    try {
-      const req = await fetch(
-        "https://guitar-store-fa2db-default-rtdb.firebaseio.com/users.json"
-      );
-      const res = await req.json();
-      const usersUpdated = { ...res };
-      for (const key in usersUpdated) {
-        let user = usersUpdated[key];
-        if (user.userName === name) {
-          let already = false;
-          if (user.cart) {
-            user.cart.map((el: any) => {
-              if (el.name === props.name) {
-                el.amount = el.amount + amount;
-                el.price = el.price + props.price;
-                already = true;
-              }
-            });
-          }
-          !already &&
-            (user.cart = [
-              ...cart,
-              {
-                name: props.name,
-                price: props.price * amount,
-                id: props.id,
-                img: props.img,
-                amount,
-              },
-            ]);
-          break;
-        }
-      }
-      console.log(usersUpdated);
-      await fetch(
-        "https://guitar-store-fa2db-default-rtdb.firebaseio.com/users.json",
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(usersUpdated),
-        }
-      );
-    } catch (err) {
-      console.log(err);
-    }
   };
 
   return (
@@ -114,13 +58,36 @@ const Item = (props: ItemObj) => {
       {logged && (
         <div className="text-center text-white mt-8">
           <button
+            disabled={isSendingRequest}
             onClick={() => {
-              addToCart();
+              addToDBCart(
+                cart,
+                loggedName,
+                {
+                  name,
+                  amount,
+                  price,
+                  id,
+                  img,
+                  type,
+                },
+                setIsSendingRequest
+              );
+              dispatch(
+                cartActions.addToCart({
+                  name: name,
+                  price: price * amount,
+                  id: id,
+                  img: img,
+                  type: type,
+                  amount,
+                })
+              );
               dispatch(handleAnimation({ type: "b", id: props.id }));
             }}
             className={`addButton ${
               animationB.on && props.id === animationB.id && classes.add
-            }`}
+            } ${isSendingRequest && "cursor-not-allowed"}`}
           >
             Añadir al carrito
           </button>

@@ -5,13 +5,16 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store";
 import { cartActions } from "@/store/cart";
 import { handleAnimation } from "@/store/handleAnimation";
+import { useState } from "react";
 import classes from "./Cart.module.css";
 import Link from "next/link";
-import { useEffect } from "react";
+import { removeFromDb } from "@/store/addAndRemoveHandlers";
 
 const Cart: React.FC<{ onClose: () => void }> = (props) => {
   const cart = useSelector((state: RootState) => state.cart.cart);
   const { animationC } = useSelector((state: RootState) => state.animation);
+  const [isSendingRequest, setIsSendingRequest] = useState(false);
+  const loggedUserName = useSelector((state: RootState) => state.login.name);
 
   const total = cart.reduce((acc, el) => acc + el.price, 0);
 
@@ -91,11 +94,19 @@ const Cart: React.FC<{ onClose: () => void }> = (props) => {
               <div className=" w-1/3 flex  justify-end lg:justify-center lg:w-[16%] ">
                 <img
                   className={`w-8 h-8 lg:cursor-pointer ${
+                    isSendingRequest && "opacity-60 pointer-events-none"
+                  } ${
                     animationC.on && el.id === animationC.id && classes.delete
                   }`}
                   src="/borrar.png"
                   alt="delete"
                   onClick={() => {
+                    removeFromDb(
+                      el.name,
+                      el.id,
+                      loggedUserName,
+                      setIsSendingRequest
+                    );
                     dispatch(
                       cartActions.removeFromCart({
                         name: el.name,
