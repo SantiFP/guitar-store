@@ -1,6 +1,6 @@
 import Image from "next/image";
 import classes from "./Header.module.css";
-import { ReactNode, useEffect, useReducer } from "react";
+import { ReactNode, useEffect, useReducer, useState } from "react";
 import { Backdrop } from "../Modal/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store";
@@ -29,6 +29,7 @@ const Header: React.FC<{ children: ReactNode; onShow: () => void }> = (
   const cart = useSelector((state: RootState) => state.cart.cart);
   const { animationA } = useSelector((state: RootState) => state.animation);
   const logged = useSelector((state: RootState) => state.login.logged);
+  const [isLogged, setIsLogged] = useState("start");
 
   const closeBackdrop = () => {
     dispatch({ type: "sideState" });
@@ -40,6 +41,10 @@ const Header: React.FC<{ children: ReactNode; onShow: () => void }> = (
     }
     dispatchStore(handleAnimation({ type: "a", id: 0 }));
   }, [cart]);
+
+  useEffect(() => {
+    setIsLogged(localStorage.getItem("logged") || "");
+  }, [logged]);
 
   return (
     <>
@@ -71,20 +76,20 @@ const Header: React.FC<{ children: ReactNode; onShow: () => void }> = (
                   Logout
                 </p>
               )}
-              {!logged && (
-                <div className="logAndReg">
-                  <Link href="/register">
-                    <p className="hover:underline cursor-auto lg:cursor-pointer">
-                      Registro
-                    </p>
-                  </Link>
-                  <Link href="/login">
-                    <p className="hover:underline cursor-auto lg:cursor-pointer">
-                      Login
-                    </p>
-                  </Link>
-                </div>
-              )}
+              {(!isLogged && !logged) && (
+                  <div className="logAndReg">
+                    <Link href="/register">
+                      <p className="hover:underline cursor-auto lg:cursor-pointer">
+                        Registro
+                      </p>
+                    </Link>
+                    <Link href="/login">
+                      <p className="hover:underline cursor-auto lg:cursor-pointer">
+                        Login
+                      </p>
+                    </Link>
+                  </div>
+                )}
 
               {logged && (
                 <div className="loggedDiv">
