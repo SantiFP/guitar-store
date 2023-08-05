@@ -2,8 +2,6 @@ import Item from "@/components/Item/Item";
 import fs from "fs";
 import path from "path";
 import { ItemObj } from "@/Types/types";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store";
 
 export default function Home(props: { data: ItemObj[] }) {
   const { data } = props;
