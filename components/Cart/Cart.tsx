@@ -8,7 +8,7 @@ import { handleAnimation } from "@/store/handleAnimation";
 import { useState } from "react";
 import classes from "./Cart.module.css";
 import Link from "next/link";
-import { removeFromDb } from "@/store/addAndRemoveHandlers";
+import { removeFromDb } from "@/utils/addAndRemoveHandlers";
 
 const Cart: React.FC<{ onClose: () => void }> = (props) => {
   const cart = useSelector((state: RootState) => state.cart.cart);

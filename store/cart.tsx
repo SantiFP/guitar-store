@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { add, remove } from "./addAndRemoveHandlers";
+import { add, remove } from "../utils/addAndRemoveHandlers";
 import { ItemObj } from "@/Types/types";
 interface initialStateType {
   cart: ItemObj[];
@@ -22,6 +22,9 @@ const cartSlice = createSlice({
     initialCart(state, action) {
       state.cart = action.payload;
     },
+    resetCart(state){
+      state.cart = []
+    }
   },
 });
 

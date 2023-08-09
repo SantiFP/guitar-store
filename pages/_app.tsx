@@ -4,11 +4,7 @@ import Header from "@/components/Header/Header";
 import Cart from "@/components/Cart/Cart";
 import { Provider } from "react-redux";
 import { store } from "@/store";
-import { useEffect, useState } from "react";
-import { loginActions } from "@/store/login";
-import { getCart } from "@/store/getCart";
-
-let isInitial = true;
+import { useState } from "react";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [cartIsShown, setIsCartShown] = useState(false);
@@ -16,18 +12,6 @@ export default function App({ Component, pageProps }: AppProps) {
   const showCart = () => {
     setIsCartShown(true);
   };
-
-  useEffect(() => {
-    if (isInitial) {
-      const isLogged = localStorage.getItem("logged");
-      const userName = localStorage.getItem("name");
-      if (isLogged === "true" && userName) {
-        store.dispatch(loginActions.logIn({ name: userName }));
-        store.dispatch(getCart(userName));
-      }
-    }
-    isInitial = false;
-  }, []);
 
   const hideCart = () => {
     setIsCartShown(false);

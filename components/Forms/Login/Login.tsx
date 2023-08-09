@@ -46,15 +46,15 @@ const LoginForm = () => {
       let existingPassword = false;
       for (const key in res) {
         const user = res[key];
-        console.log("cava");
-        console.log(user);
         if (user.userName === name && user.password === password) {
-          console.log("csa");
           dispatch(loginActions.logIn({ name }));
           dispatch(getCart(name));
           setLoading(true);
           localStorage.setItem("logged", "true");
           localStorage.setItem("name", name);
+          const now = new Date();
+          now.setSeconds(now.getSeconds() + 10);
+          localStorage.setItem('expiration',now.toISOString())
           router.replace("/");
         } else if (user.userName === name) {
           existingName = true;

@@ -49,7 +49,6 @@ export const removeFromDb = async (
       let user = usersUpdated[key];
       if (user.userName === loggedUserName) {
         user.cart = remove(user.cart, itemName, id);
-
         break;
       }
     }
@@ -69,7 +68,6 @@ export const removeFromDb = async (
     setIsSendingRequest(false);
   }
 };
-
 
 export const addToDBCart = async (
   cart: ItemObj[],
@@ -116,5 +114,3 @@ export const addToDBCart = async (
     setSendingRequest(false);
   }
 };
-
-

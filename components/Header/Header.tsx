@@ -7,8 +7,13 @@ import { AppDispatch, RootState } from "@/store";
 import { handleAnimation } from "@/store/handleAnimation";
 import { ActionType, StateType } from "@/Types/types";
 import { loginActions } from "@/store/login";
+import { getCart } from "@/store/getCart";
+import { getSessionDuration } from "@/utils/sessionDuration";
 import Link from "next/link";
 import Nav from "./Nav";
+import { cartActions } from "@/store/cart";
+
+let initial = true;
 
 const initialState: StateType = {
   sideState: false,
@@ -35,15 +40,48 @@ const Header: React.FC<{ children: ReactNode; onShow: () => void }> = (
     dispatch({ type: "sideState" });
   };
 
-  useEffect(() => {
-    if (cart.length === 0) {
-      return;
-    }
-    dispatchStore(handleAnimation({ type: "a", id: 0 }));
-  }, [cart]);
+  const loginOut = () => {
+    dispatchStore(loginActions.logOut());
+    dispatchStore(cartActions.resetCart());
+    localStorage.removeItem("logged");
+    localStorage.removeItem("name");
+    localStorage.removeItem("expiration");
+  };
 
   useEffect(() => {
-    setIsLogged(localStorage.getItem("logged") || "");
+    const isLogged = localStorage.getItem("logged");
+    const userName = localStorage.getItem("name");
+    const remaining = getSessionDuration();
+
+    setIsLogged(isLogged || "");
+
+    if (remaining) {
+      if (remaining < 0) {
+        loginOut();
+      }
+    }
+
+    let leaving:any;
+
+    if (isLogged === "true" && userName) {
+      dispatchStore(loginActions.logIn({ name: userName }));
+      dispatchStore(getCart(userName));
+      leaving = setTimeout(() => {
+        loginOut();
+      }, remaining);
+      clearInterval(leaving)
+    }
+
+    return () => {
+      clearInterval(leaving)
+    }
+  }, [logged]);
+
+  useEffect(() => {
+    if (initial) {
+      dispatchStore(handleAnimation({ type: "a", id: 0 }));
+      initial = false;
+    }
   }, [logged]);
 
   return (
@@ -67,9 +105,7 @@ const Header: React.FC<{ children: ReactNode; onShow: () => void }> = (
               {logged && (
                 <p
                   onClick={() => {
-                    dispatchStore(loginActions.logOut());
-                    localStorage.removeItem("logged");
-                    localStorage.removeItem("name");
+                    loginOut();
                   }}
                   className="isLogged"
                 >
@@ -83,7 +119,7 @@ const Header: React.FC<{ children: ReactNode; onShow: () => void }> = (
                       Registro
                     </p>
                   </Link>
-                  <Link href="/login">
+                  <Link onClick={() => initial = true} href="/login">
                     <p className="hover:underline cursor-auto lg:cursor-pointer">
                       Login
                     </p>

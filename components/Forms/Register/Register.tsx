@@ -157,9 +157,9 @@ const RegisterForm = () => {
             }
           />
 
-          <Warning isTouched={input2Touched} isOk={emailIsOK}>
+          {/* <Warning isTouched={input2Touched} isOk={emailIsOK}>
             El email debe contener un punto y un arroba
-          </Warning>
+          </Warning> */}
 
           {/* //////////////////////////////// INPUT PASSWORD ////////////////////////////////////////////// */}
 
@@ -208,9 +208,9 @@ const RegisterForm = () => {
             }
           />
 
-          <Warning isTouched={input4Touched} isOk={confirmPasswordIsOk}>
+          {/* <Warning isTouched={input4Touched} isOk={confirmPasswordIsOk}>
             Las contraseñas no coinciden
-          </Warning>
+          </Warning> */}
 
           <div className="text-center pt-4 text-xl">
             <button

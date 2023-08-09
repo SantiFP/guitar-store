@@ -6,7 +6,7 @@ import classes from "./Item.module.css";
 import { cartActions } from "@/store/cart";
 import { handleAnimation } from "@/store/handleAnimation";
 import { ItemObj } from "@/Types/types";
-import { addToDBCart } from "@/store/addAndRemoveHandlers";
+import { addToDBCart } from "@/utils/addAndRemoveHandlers";
 
 const Item = (props: ItemObj) => {
   const [amount, setAmount] = useState<number>(1);
@@ -84,6 +84,7 @@ const Item = (props: ItemObj) => {
                 })
               );
               dispatch(handleAnimation({ type: "b", id: props.id }));
+              dispatch(handleAnimation({ type: "a", id: 0 }));
             }}
             className={`addButton ${
               animationB.on && props.id === animationB.id && classes.add
