@@ -69,7 +69,6 @@ const Header: React.FC<{ children: ReactNode; onShow: () => void }> = (
       leaving = setTimeout(() => {
         loginOut();
       }, remaining);
-      clearInterval(leaving)
     }
 
     return () => {
