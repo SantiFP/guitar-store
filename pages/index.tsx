@@ -2,6 +2,7 @@ import Item from "@/components/Item/Item";
 import fs from "fs";
 import path from "path";
 import { ItemObj } from "@/Types/types";
+import https from "https";
 
 export default function Home(props: { data: ItemObj[] }) {
   const { data } = props;
@@ -41,6 +42,30 @@ export async function getStaticProps() {
         data,
       },
     };
+
+    //////////////////////////// FETCH A URL /////////////////////////////////////////////////
+
+    // const url = "https://jsonplaceholder.typicode.com/posts";
+
+    // return new Promise((resolve, reject) => {
+    //   https
+    //     .get(url, (response) => {
+    //       let data = "";
+
+    //       response.on("data", (chunk) => {
+    //         data += chunk;
+    //       });
+
+    //       response.on("end", () => {
+    //         const parsedData = JSON.parse(data);
+    //         resolve({ props: { data: parsedData } });
+    //       });
+    //     })
+    //     .on("error", (error) => {
+    //       reject(error);
+    //     });
+    // });
+    
   } catch (error) {
     console.error("Error fetching data");
 
