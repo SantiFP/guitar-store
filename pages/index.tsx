@@ -2,7 +2,7 @@ import Item from "@/components/Item/Item";
 import fs from "fs";
 import path from "path";
 import { ItemObj } from "@/Types/types";
-import https from "https";
+// import https from "https";
 
 export default function Home(props: { data: ItemObj[] }) {
   const { data } = props;
@@ -65,7 +65,7 @@ export async function getStaticProps() {
     //       reject(error);
     //     });
     // });
-    
+
   } catch (error) {
     console.error("Error fetching data");
 
