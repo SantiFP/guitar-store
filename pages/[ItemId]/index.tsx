@@ -4,10 +4,22 @@ import fs from "fs";
 import path from "path";
 
 const Details = (props: {
-  returnedItem: { name: string; price: number; description: string,img:string };
+  returnedItem: {
+    name: string;
+    price: number;
+    description: string;
+    img: string;
+  };
 }) => {
-  const { name, price, description,img } = props.returnedItem;
-  return <DetailedItem name={name} price={price} description={description} img={img} />;
+  const { name, price, description, img } = props.returnedItem;
+  return (
+    <DetailedItem
+      name={name}
+      price={price}
+      description={description}
+      img={img}
+    />
+  );
 };
 export default Details;
 
@@ -45,7 +57,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       name: selectedItem.name,
       price: selectedItem.price,
       description: selectedItem.description,
-      img:selectedItem.img
+      img: selectedItem.img,
     };
 
     return {
