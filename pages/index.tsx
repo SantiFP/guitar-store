@@ -2,14 +2,13 @@ import Item from "@/components/Item/Item";
 import fs from "fs";
 import path from "path";
 import { ItemObj } from "@/Types/types";
-import https from "https";
+// import https from "https";
 
 export default function Home(props: { data: ItemObj[] }) {
-  // const { data } = props;
-  console.log(props);
+  const { data } = props;
   return (
     <>
-      {/* <div className="lg:flex lg:flex-row lg:w-11/12 lg:mx-auto lg:flex-wrap">
+      <div className="lg:flex lg:flex-row lg:w-11/12 lg:mx-auto lg:flex-wrap">
         {data.map((el, i) => (
           <div
             className={`lg:w-1/3 lg:mt-5 ${i === data.length - 1 && "pb-6"}`}
@@ -25,7 +24,7 @@ export default function Home(props: { data: ItemObj[] }) {
             />
           </div>
         ))}
-      </div> */}
+      </div>
     </>
   );
 }
@@ -33,42 +32,40 @@ export default function Home(props: { data: ItemObj[] }) {
 export async function getStaticProps() {
 
   try {
-    // const filePath = path.join(process.cwd(), "guitarsApi", "guitarsApi.json");
+    const filePath = path.join(process.cwd(), "guitarsApi", "guitarsApi.json");
 
-    // const fileContent = await fs.promises.readFile(filePath, "utf8");
+    const fileContent = await fs.promises.readFile(filePath, "utf8");
 
-    // const data = JSON.parse(fileContent);
+    const data = JSON.parse(fileContent);
 
-    // return {
-    //   props: {
-    //     data,
-    //   },
-    // };
+    return {
+      props: {
+        data,
+      },
+    };
 
     //////////////////////////// FETCH A URL /////////////////////////////////////////////////
 
-    const url = "https://jsonplaceholder.typicode.com/posts";
+    // const url = "https://jsonplaceholder.typicode.com/posts";
 
-    return new Promise((resolve, reject) => {
-      https
-        .get(url, (response) => {
-          let data = "";
+    // return new Promise((resolve, reject) => {
+    //   https
+    //     .get(url, (response) => {
+    //       let data = "";
 
-          response.on("data", (chunk) => {
-            data += chunk;
-            console.log(chunk);
-          });
+    //       response.on("data", (chunk) => {
+    //         data += chunk;
+    //       });
 
-          response.on("end", () => {
-            const parsedData = JSON.parse(data);
-            resolve({ props: { data: parsedData } });
-          });
-        })
-        .on("error", (error) => {
-          reject(error);
-        });
-    });
-
+    //       response.on("end", () => {
+    //         const parsedData = JSON.parse(data);
+    //         resolve({ props: { data: parsedData } });
+    //       });
+    //     })
+    //     .on("error", (error) => {
+    //       reject(error);
+    //     });
+    // });
   } catch (error) {
     console.error("Error fetching data");
 
@@ -79,39 +76,3 @@ export async function getStaticProps() {
     };
   }
 }
-
-// export async function getStaticProps() {
-//   try {
-//     const url = 'https://jsonplaceholder.typicode.com/posts';
-
-//     const response = await new Promise((resolve, reject) => {
-//       https.get(url, (res) => {
-//         let data = '';
-
-//         res.on('data', (chunk) => {
-//           data += chunk;
-//         });
-
-//         res.on('end', () => {
-//           resolve(JSON.parse(data));
-//         });
-//       }).on('error', (error) => {
-//         reject(error);
-//       });
-//     });
-
-//     return {
-//       props: {
-//         posts: response,
-//       },
-//     };
-//   } catch (error) {
-//     console.error('Error fetching data:', error.message);
-
-//     return {
-//       props: {
-//         posts: [],
-//       },
-//     };
-//   }
-// }
