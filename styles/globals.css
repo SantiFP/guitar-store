@@ -102,4 +102,13 @@ body {
   .logAndReg {
     @apply flex flex-col justify-center items-center space-y-1 mt-1 lg:-mt-6;
   }
+  .detailsDiv{
+    @apply w-[65%] mx-auto flex flex-col space-y-3 items-center mt-10 lg:flex-row lg:space-y-0 lg:space-x-8
+  }
+  .details{
+    @apply pt-2 flex flex-col items-center space-y-4 lg:p-0
+  }
+  .nameAndPrice{
+    @apply flex flex-col space-y-2 lg:space-y-0 lg:flex-row lg:space-x-8
+  }
 }

@@ -31,7 +31,7 @@ export const getStaticPaths = async () => {
     const data = JSON.parse(fileContent);
 
     return {
-      fallback: true,
+      fallback: false,
       paths: data.map((el: any) => ({ params: { ItemId: el.id.toString() } })),
     };
   } catch (error) {
