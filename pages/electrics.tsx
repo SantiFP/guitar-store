@@ -18,7 +18,7 @@ const Gadgets = (props: { electrics: ItemObj[] }) => {
               img={el.img}
               amount={el.amount}
             />
-          </div>
+          </div> 
         ))}
       </div>
     </>

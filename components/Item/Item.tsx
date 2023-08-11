@@ -7,6 +7,7 @@ import { cartActions } from "@/store/cart";
 import { handleAnimation } from "@/store/handleAnimation";
 import { ItemObj } from "@/Types/types";
 import { addToDBCart } from "@/utils/addAndRemoveHandlers";
+import Link from "next/link";
 
 const Item = (props: ItemObj) => {
   const [amount, setAmount] = useState<number>(1);
@@ -53,6 +54,11 @@ const Item = (props: ItemObj) => {
             Total x{amount}:{" "}
             <span className="text-2xl">${props.price * amount}</span>{" "}
           </p>
+          <div>
+            <span className=" hover:underline lg:cursor-pointer">
+              <Link href={`/${props.id}`}>Mas información</Link>
+            </span>
+          </div>
         </div>
       </div>
       {logged && (
