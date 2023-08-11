@@ -53,7 +53,7 @@ const LoginForm = () => {
           localStorage.setItem("logged", "true");
           localStorage.setItem("name", name);
           const now = new Date();
-          now.setSeconds(now.getSeconds() + 10);
+          now.setMinutes(now.getMinutes() + 10);
           localStorage.setItem('expiration',now.toISOString())
           router.replace("/");
         } else if (user.userName === name) {

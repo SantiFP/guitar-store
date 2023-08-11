@@ -51,29 +51,29 @@ const Header: React.FC<{ children: ReactNode; onShow: () => void }> = (
   useEffect(() => {
     const isLogged = localStorage.getItem("logged");
     const userName = localStorage.getItem("name");
-    // const remaining = getSessionDuration();
+    const remaining = getSessionDuration();
 
     setIsLogged(isLogged || "");
 
-    // if (remaining) {
-    //   if (remaining < 0) {
-    //     loginOut();
-    //     return;
-    //   }
-    // }
+    if (remaining) {
+      if (remaining < 0) {
+        loginOut();
+        return;
+      }
+    }
 
     let leaving:any;
 
     if (isLogged === "true" && userName) {
       dispatchStore(loginActions.logIn({ name: userName }));
       dispatchStore(getCart(userName));
-      // leaving = setTimeout(() => {
-      //   loginOut();
-      // }, remaining);
+      leaving = setTimeout(() => {
+        loginOut();
+      }, remaining);
     }
 
     return () => {
-      // clearInterval(leaving)
+      clearInterval(leaving)
     }
   }, [logged]);
 
