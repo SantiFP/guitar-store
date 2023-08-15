@@ -65,13 +65,13 @@ body {
     @apply pb-12 flex flex-col items-center lg:w-1/2 lg:items-end lg:pr-12;
   }
   .selectPlan {
-    @apply mt-12 lg:mt-10 py-5 text-center bg-white text-black;
+    @apply mt-12 lg:mt-2 py-5 text-center bg-white text-black;
   }
   .payMethod {
     @apply relative bottom-[3.5rem] text-xs bg-zinc-950 w-fit px-2 py-1 pointer-events-none text-white;
   }
   .selectFees {
-    @apply bg-zinc-800 py-2 pl-2 w-full text-white outline-none;
+    @apply bg-zinc-800 py-2 pl-2 w-full cursor-auto text-white outline-none lg:cursor-pointer;
   }
   .selectContainer {
     @apply w-3/5 mx-auto lg:ml-0 lg:mr-auto lg:pl-8;
@@ -83,7 +83,7 @@ body {
     @apply flex flex-col items-center lg:w-1/2 lg:justify-center;
   }
   .buyButton {
-    @apply rounded-full bg-zinc-900 text-white py-3 px-12 text-xl;
+    @apply rounded-full bg-zinc-900 text-white py-3 px-12 text-xl cursor-auto lg:cursor-pointer;
   }
   .input {
     @apply py-3 pl-3 w-5/6 mx-auto outline-none border-2 border-solid  lg:w-2/5;

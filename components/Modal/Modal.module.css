@@ -20,8 +20,8 @@
   z-index: 10;
   animation: slide-down 300ms ease-out forwards;
   color: black;
-  overflow-y: auto; 
-  max-height: 80vh; 
+  overflow-y: auto;
+  max-height: 80vh;
 }
 
 .modalEmpty {
@@ -46,6 +46,12 @@
     right: 12.5%;
     top: 6%;
     max-height: 90vh;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .modal {
+    top: 10%;
   }
 }
 

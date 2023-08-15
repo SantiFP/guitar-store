@@ -54,7 +54,7 @@ const loginHandler = async (
         localStorage.setItem("logged", "true");
         localStorage.setItem("name", name);
         const now = new Date();
-        now.setHours(now.getHours() + 5);
+        now.setMinutes(now.getMinutes() + 10);
         localStorage.setItem("expiration", now.toISOString());
         router.replace("/");
       } else if (user.userName === name) {

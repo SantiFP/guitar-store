@@ -1,14 +1,19 @@
-import { useSelector } from "react-redux";
-import { RootState } from "@/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/store";
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
+import { removeCart } from "@/store/getCart";
+import Swal from "sweetalert2";
 
 const PaymentForm = () => {
   const cart = useSelector((state: RootState) => state.cart.cart);
   const [selectedCard, setSelectedCard] = useState<string>("");
-
+  const [noCard, setNoCard] = useState<boolean>(false);
+  const [noPaymentMethod, setNoPaymentMethod] = useState<boolean>(false);
+  const total = cart.reduce((acc, el) => acc + el.price, 0);
   const selectRef = useRef<HTMLSelectElement>(null);
-
+  const name = useSelector((state: RootState) => state.login.name);
+  const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
 
   // if (cart.length === 0) {
@@ -18,15 +23,49 @@ const PaymentForm = () => {
 
   const paymentHandler = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!selectRef.current?.value || !selectedCard) {
+    if (!selectedCard) {
+      setNoCard(true);
       return;
-    };
+    }
+    if (!selectRef.current?.value) {
+      setNoPaymentMethod(true);
+      setNoCard(false);
+      return;
+    }
 
+    setNoPaymentMethod(false);
+    setNoCard(false);
+    const fees = total / Number(selectRef.current?.value[0]);
+
+    Swal.fire({
+      title: `Confirma la compra de ${cart.length} ${
+        cart.length === 1 ? "item" : "items"
+      } en ${
+        selectRef.current?.value
+      } de $${fees} con tarjeta ${selectedCard}?`,
+      html: `<p>Total: $${total}</p>
+      <p>Esta acción no se puede deshacer</p>`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Confirmar compra",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          "¡Compra confirmada!",
+          "La compra se ha realizado con éxito.",
+          "success"
+        );
+        dispatch(removeCart(name));
+        router.push("/");
+      }
+    });
   };
   return (
     <>
       <div className="selectPlan">
-        <p>Seleccione plan de pago:</p>
         <p>Tarjeta de crédito hasta en 12 cuotas sin recargo</p>
         <p className="text-xs pt-2">
           15% de descuento con pago con tarjeta Visa
@@ -38,7 +77,7 @@ const PaymentForm = () => {
             <div>
               <div className="cardDivs">
                 <input
-                  className="w-5 bg-black"
+                  className="w-5 cursor-auto lg:cursor-pointer"
                   type="radio"
                   id="visa"
                   name="payment"
@@ -46,7 +85,11 @@ const PaymentForm = () => {
                   onChange={() => setSelectedCard("Visa")}
                 />
                 <label htmlFor="visa">
-                  <img className="w-20 h-20 " src="/visa.png" alt="" />
+                  <img
+                    className="w-20 h-20 cursor-auto lg:cursor-pointer"
+                    src="/visa.png"
+                    alt=""
+                  />
                 </label>
               </div>
 
@@ -56,17 +99,21 @@ const PaymentForm = () => {
                   id="mastercard"
                   name="payment"
                   value="Mastercard"
-                  className="w-5"
+                  className="w-5 cursor-auto lg:cursor-pointer"
                   onChange={() => setSelectedCard("Master")}
                 />
                 <label className="-mt-3" htmlFor="mastercard">
-                  <img className="w-24 h-12" src="mastercard.png" alt="" />
+                  <img
+                    className="w-24 h-12 cursor-auto lg:cursor-pointer"
+                    src="mastercard.png"
+                    alt=""
+                  />
                 </label>
               </div>
 
               <div className="cardDivs pt-3">
                 <input
-                  className="w-5"
+                  className="w-5 cursor-auto lg:cursor-pointer"
                   type="radio"
                   id="diners"
                   name="payment"
@@ -74,7 +121,11 @@ const PaymentForm = () => {
                   onChange={() => setSelectedCard("Diners")}
                 />
                 <label htmlFor="diners">
-                  <img className="w-26 h-12" src="/diners.png" alt="" />
+                  <img
+                    className="w-26 h-12 cursor-auto lg:cursor-pointer"
+                    src="/diners.png"
+                    alt=""
+                  />
                 </label>
               </div>
             </div>
@@ -95,6 +146,17 @@ const PaymentForm = () => {
             </div>
           </div>
         </div>
+
+        {noCard && (
+          <p className="text-red-500 text-center -mt-6">
+            Selecciona una tarjeta de crédito
+          </p>
+        )}
+        {noPaymentMethod && (
+          <p className="text-red-500 text-center -mt-6">
+            Selecciona un método de pago
+          </p>
+        )}
 
         <div className="flex justify-center mt-4">
           <button className="buyButton">COMPRAR</button>
