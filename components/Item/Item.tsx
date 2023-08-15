@@ -99,7 +99,7 @@ const Item = (props: ItemObj) => {
 
           <p className="pb-2">
             <span className="text-2xl bg-zinc-800 px-2 py-1 text-white">
-              ${props.price * amount}
+              $ {props.price * amount}
             </span>
           </p>
           <div>
