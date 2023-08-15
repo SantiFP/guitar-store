@@ -50,7 +50,7 @@ const Item = (props: ItemObj) => {
                 <button
                   className={`${
                     animationD.on && props.id === animationD.id && classes.add
-                  }  bg-zinc-950 text-white px-5 py-1`}
+                  }  bg-zinc-950 text-white px-5 py-1 cursor-auto lg:cursor-pointer`}
                   onClick={() => {
                     amountHandler("+");
                     dispatch(
@@ -74,7 +74,7 @@ const Item = (props: ItemObj) => {
                 <button
                   className={`${
                     animationE.on && props.id === animationE.id && classes.add
-                  }  bg-zinc-950 text-white px-5 py-1`}
+                  }  bg-zinc-950 text-white px-5 py-1 cursor-auto lg:cursor-pointer`}
                   onClick={() => {
                     amountHandler("-");
                     dispatch(

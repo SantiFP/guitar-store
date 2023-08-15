@@ -88,7 +88,7 @@ const LoginForm = () => {
             <p className="h-[5.4%]"></p>
           )}
 
-          <div className="text-center pt-6 text-xl">
+          <div className="text-center pt-3 text-xl">
             <button className="formButton">INICIAR SESIÓN</button>
           </div>
         </form>

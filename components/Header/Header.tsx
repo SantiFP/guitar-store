@@ -179,8 +179,8 @@ const Header: React.FC<{ children: ReactNode; onShow: () => void }> = (
               )}
             </div>
             {logged && (
-              <p className="text-xl text-right -mt-12 pr-4 lg:hidden">
-                <span className="bg-white text-black mr-4 px-2 py-1">
+              <p className="text-xl text-right -mt-12 pr-2 lg:hidden">
+                <span className="bg-white text-black px-2 py-1">
                   Hola {name}!!
                 </span>
               </p>
