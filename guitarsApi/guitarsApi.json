@@ -57,7 +57,7 @@
   },
   {
     "name": "Ibanez",
-    "price": 8915,
+    "price": 2450,
     "id": 7,
     "img": "./ibanez.png",
     "type": "electric",
@@ -81,7 +81,7 @@
   },
   {
     "name": "LTD",
-    "price": 8915,
+    "price": 1125,
     "id": 10,
     "img": "./gibson.png",
     "type": "electric",
@@ -105,7 +105,7 @@
   },
   {
     "name": "Gibson SG",
-    "price": 8915,
+    "price": 3000,
     "id": 13,
     "img": "./gibson.png",
     "type": "electric",
@@ -113,7 +113,7 @@
   },
   {
     "name": "Fender-150",
-    "price": 1200,
+    "price": 1500,
     "id": 14,
     "img": "./fender-strat.png",
     "type": "electric",
@@ -121,7 +121,7 @@
   },
   {
     "name": "Tuner Pro",
-    "price": 500,
+    "price": 600,
     "id": 15,
     "img": "./tuner.png",
     "type": "gadget",
@@ -129,7 +129,7 @@
   },
   {
     "name": "Ibanez gold",
-    "price": 8915,
+    "price": 3250,
     "id": 16,
     "img": "./ibanez.png",
     "type": "electric",
@@ -137,7 +137,7 @@
   },
   {
     "name": "Fender EVH",
-    "price": 1200,
+    "price": 1270,
     "id": 17,
     "img": "./fender-strat.png",
     "type": "electric",
@@ -145,7 +145,7 @@
   },
   {
     "name": "Fender-tele",
-    "price": 1856,
+    "price": 2100,
     "id": 18,
     "img": "./fender-tele.png",
     "type": "electric",
