@@ -79,7 +79,7 @@ const RegisterForm = () => {
         </div>
       )}
       {!loading && (
-        <form onSubmit={handleSubmit} className="formDiv">
+        <form onSubmit={handleSubmit} className="formDiv mt-1">
           <PasswordLevels levels={levels} />
 
           {/* //////////////////////////// INPUT USERNAME ///////////////////////////////////////////// */}
@@ -172,7 +172,7 @@ const RegisterForm = () => {
             Las contraseñas no coinciden
           </Warning>
 
-          <div className="text-center pt-4 text-xl">
+          <div className="text-center text-xl">
             <button
               className={
                 !completed
