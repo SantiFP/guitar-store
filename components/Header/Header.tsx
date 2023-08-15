@@ -120,7 +120,7 @@ const Header: React.FC<{ children: ReactNode; onShow: () => void }> = (
           <div>
             <Image
               onClick={() => dispatch({ type: "sideState" })}
-              className='z-20 fixed bg-zinc-900 rounded-full px-2 py-2 mt-1 ml-1 lg:hidden'
+              className='z-20 fixed bg-zinc-900 rounded-full px-2 py-2 mt-2 ml-2 lg:hidden'
               width={60}
               height={60}
               src={!reducerState.sideState ? "/list.png" : "/exit.png"}

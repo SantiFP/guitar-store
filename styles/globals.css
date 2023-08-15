@@ -90,7 +90,7 @@ body {
   }
 
   .formDiv {
-    @apply text-black flex flex-col h-[70vh] justify-center ;
+    @apply text-black flex flex-col h-[70vh] justify-center -mt-16 lg:mt-0 ;
   }
   .formButton {
     @apply bg-zinc-800 text-white px-5 py-2 rounded-3xl cursor-auto lg:cursor-pointer;
