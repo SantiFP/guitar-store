@@ -29,7 +29,7 @@ const Item = (props: ItemObj) => {
   };
 
   return (
-    <div className="itemDiv">
+    <div className={`itemDiv ${!logged && "pb-2"}`}>
       <div className="flex flex-col lg:flex lg:flex-row">
         <img
           width={0}
@@ -40,9 +40,7 @@ const Item = (props: ItemObj) => {
         />
 
         <div className="flex flex-col space-y-4 text-center mt-4 w-full">
-          <p className="name">
-            {props.name}
-          </p>
+          <p className="name">{props.name}</p>
           {logged && (
             <div className="flex flex-row space-x-3 justify-center">
               <p className="pt-8 text-lg">Total x{amount}</p>
@@ -112,7 +110,7 @@ const Item = (props: ItemObj) => {
         </div>
       </div>
       {logged && (
-        <div className="text-center text-white mt-8">
+        <div className="text-center text-white mt-5">
           <button
             disabled={isSendingRequest}
             onClick={() => {
