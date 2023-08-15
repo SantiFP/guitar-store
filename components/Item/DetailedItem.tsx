@@ -14,7 +14,7 @@ const DetailedItem = (props: {
             <p>Nombre: {name}</p>
             <p>Precio: ${price}</p>
           </div>
-            <p>{description}</p>
+          <p>{description}</p>
         </div>
       </div>
     </>
