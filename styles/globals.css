@@ -17,7 +17,13 @@ body {
 
 @layer components {
   .login-cart {
-    @apply flex flex-row justify-center space-x-4 pt-3 lg:w-[8%] lg:items-center lg:pt-16 lg:space-x-0 lg:flex lg:flex-col;
+    @apply flex flex-row justify-center pt-3 lg:w-[8%] lg:items-center lg:pt-16 lg:space-x-0 lg:flex lg:flex-col;
+  }
+  .name{
+    @apply text-2xl w-[60%] mx-auto px-3 py-2 bg-zinc-900 text-white lg:w-3/4
+  }
+  .selection{
+    @apply flex flex-col space-y-1 text-3xl cursor-auto lg:cursor-pointer
   }
   .signs {
     @apply w-5/6 mx-auto bg-zinc-900  text-white cursor-auto lg:cursor-pointer lg:w-full lg:hover:bg-black;
@@ -35,7 +41,7 @@ body {
     @apply rounded-full text-lg px-2 mr-1 text-white  bg-red-500;
   }
   .isLogged {
-    @apply hover:underline  w-fit px-4 mr-32 lg:mr-0 lg:mb-24 lg:absolute lg:pl-5;
+    @apply hover:underline w-fit px-4 mr-36 lg:mr-0 lg:mb-24 lg:absolute lg:pl-5;
   }
   .loggedDiv {
     @apply bg-black rounded-[10rem] px-2 py-3 fixed z-10;
@@ -93,7 +99,7 @@ body {
     @apply text-xs px-3 py-1 w-3/4 mx-auto bg-white border-[1px] mb-1 border-solid lg:w-[35%];
   }
   .levelsDiv {
-    @apply bg-white flex flex-col space-y-1 text-black text-[0.7rem] w-5/6 left-[8.3%] right-[8.3%] absolute top-20 lg:text-[0.74rem] lg:mt-2 lg:w-1/3 lg:right-[33.3%] lg:left-[33.3%];
+    @apply bg-white flex flex-col space-y-1 border-solid border-2 border-black text-black text-[0.7rem] w-5/6 left-[8.3%] right-[8.3%] absolute top-20 lg:text-[0.74rem] lg:mt-2 lg:w-1/3 lg:right-[33.3%] lg:left-[33.3%];
   }
   .ball {
     @apply w-2 h-2 rounded-full mt-[0.325rem];

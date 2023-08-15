@@ -47,17 +47,21 @@ const PasswordLevels = (props: { levels: boolean }) => {
           </p>
         </div>
 
-        <p className="text-black text-center pb-2">La contraseña debe tener al menos seguridad media para avanzar</p>
+        <p className="text-center pb-2 pt-2">
+          <span className="bg-zinc-900 text-white px-2 py-1">
+            La contraseña debe tener al menos seguridad media para avanzar
+          </span>
+        </p>
       </div>
     </CSSTransition>
   );
 };
 
-export const LevelPrompt = (props:{
-  passwordIsOK : boolean,
-  midPassword: boolean,
+export const LevelPrompt = (props: {
+  passwordIsOK: boolean;
+  midPassword: boolean;
 }) => {
-  const {passwordIsOK,midPassword} = props
+  const { passwordIsOK, midPassword } = props;
   return (
     <div
       className={`warning ${

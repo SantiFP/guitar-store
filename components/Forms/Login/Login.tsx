@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
-import { loginActions } from "@/store/login";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
-import { getCart } from "@/store/getCart";
 import { AppDispatch } from "@/store";
+import { useEffect } from "react";
+import loginHandler from "./LoginHandler";
 
 const LoginForm = () => {
   const [nameInvalid, setNameInvalid] = useState<boolean>(false);
@@ -14,66 +14,32 @@ const LoginForm = () => {
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
 
-  const login = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const name = nameRef.current?.value.trim().toLowerCase();
-    const password = passwordRef.current?.value.trim()
-    const nameLength = name && name.trim().length > 2;
-    const passwordLength =
-      password &&
-      (/^(?=.*[a-z])(?=.*\d)[A-Za-z\d.]{4,}$/.test(password.trim()) ||
-        password.trim().length > 5);
-
-    if (!nameLength) {
-      setNameInvalid(true);
-      return;
-    }
-
-    if (!passwordLength) {
-      setPasswordInvalid(true);
-      setNameInvalid(false);
-      return;
-    }
-
-    setPasswordInvalid(false);
-
-    try {
-      const req = await fetch(
-        "https://guitar-store-fa2db-default-rtdb.firebaseio.com/users.json"
-      );
-      const res = await req.json();
-      let existingName = false;
-      let existingPassword = false;
-      for (const key in res) {
-        const user = res[key];
-        if (user.userName === name && user.password === password) {
-          dispatch(loginActions.logIn({ name }));
-          dispatch(getCart(name));
-          setLoading(true);
-          localStorage.setItem("logged", "true");
-          localStorage.setItem("name", name);
-          const now = new Date();
-          now.setMinutes(now.getMinutes() + 10);
-          localStorage.setItem('expiration',now.toISOString())
-          router.replace("/");
-        } else if (user.userName === name) {
-          existingName = true;
-        } else if (user.password === password && user.name === name) {
-          existingPassword = true;
-        }
-      }
-      !existingName ? setNameFromDb(false) : setNameFromDb(true);
-      !existingPassword ? setPasswordFromDb(false) : setPasswordFromDb(true);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   const nameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const warning = (message: string) => {
     return <p className="warning border-red-500 text-red-500">{message}</p>;
   };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    loginHandler(
+      e,
+      nameRef,
+      passwordRef,
+      setNameInvalid,
+      setPasswordInvalid,
+      setLoading,
+      setNameFromDb,
+      setPasswordFromDb,
+      dispatch,
+      router
+    );
+  };
+
+  useEffect(() => {
+    if (nameRef.current) {
+      nameRef.current.focus();
+    }
+  }, []);
 
   return (
     <>
@@ -86,10 +52,12 @@ const LoginForm = () => {
         </div>
       )}
       {!loading && (
-        <form onSubmit={login} className="formDiv">
+        <form onSubmit={handleSubmit} className="formDiv">
           <input
             ref={nameRef}
-            className="input"
+            className={`input ${
+              nameInvalid || !nameFromDb ? "border-red-500" : "border-inherit"
+            }`}
             type="text"
             placeholder="Nombre de usuario"
           />
@@ -104,7 +72,11 @@ const LoginForm = () => {
 
           <input
             ref={passwordRef}
-            className="input"
+            className={`input ${
+              passwordInvalid || !passwordFromDb
+                ? "border-red-500"
+                : "border-inherit"
+            }`}
             type="password"
             placeholder="Contraseña"
           />

@@ -1,4 +1,5 @@
 import { Props } from "@/Types/types";
+import { useRef, useEffect } from "react";
 
 const Input = (props: Props) => {
   const {
@@ -12,8 +13,15 @@ const Input = (props: Props) => {
     className,
   } = props;
 
+  const ref = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.focus();
+    }
+  }, [ref]);
   return (
     <input
+      ref={type === "name" ? ref : null}
       onBlur={(e) => {
         dispatch({ type: type, payload: e.target?.value });
         setInputsObject((prevState: {}) => {

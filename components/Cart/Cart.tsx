@@ -9,10 +9,12 @@ import { useState } from "react";
 import classes from "./Cart.module.css";
 import Link from "next/link";
 import { removeFromDb } from "@/utils/addAndRemoveHandlers";
+import { removeCart } from "@/store/getCart";
 
 const Cart: React.FC<{ onClose: () => void }> = (props) => {
   const cart = useSelector((state: RootState) => state.cart.cart);
   const { animationC } = useSelector((state: RootState) => state.animation);
+  const name = useSelector((state: RootState) => state.login.name);
   const [isSendingRequest, setIsSendingRequest] = useState(false);
   const loggedUserName = useSelector((state: RootState) => state.login.name);
 
@@ -22,6 +24,31 @@ const Cart: React.FC<{ onClose: () => void }> = (props) => {
 
   return (
     <Modal cartLength={cart.length} onClose={props.onClose}>
+      {cart.length > 0 && (
+        <>
+          <div>
+            <button
+              onClick={() => {
+                dispatch(removeCart(name));
+              }}
+              className="hidden lg:block bg-zinc-800 text-white px-2 py-1 "
+            >
+              ELIMINAR CARRITO
+            </button>
+          </div>
+          <div>
+            <button
+              onClick={() => {
+                dispatch(removeCart(name));
+              }}
+              className="bg-zinc-800 text-white px-5 py-1 cursor-auto lg:hidden"
+            >
+              E. C.
+            </button>
+          </div>
+        </>
+      )}
+
       <div className="flex flex-row-reverse pb-12">
         <div onClick={props.onClose} className="w-fit ">
           <img
@@ -57,6 +84,7 @@ const Cart: React.FC<{ onClose: () => void }> = (props) => {
               <li key="n">N. - Nombre</li>
               <li key="c">C. - Cantidad</li>
               <li key="t">T. - Total</li>
+              <li key="e">E. C. - Eliminar carrito</li>
             </ul>
           </div>
         )}

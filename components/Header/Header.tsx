@@ -1,7 +1,7 @@
 import Image from "next/image";
 import classes from "./Header.module.css";
 import { ReactNode, useEffect, useReducer, useState } from "react";
-import { Backdrop } from "../Modal/Modal";
+import Modal, { Backdrop } from "../Modal/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store";
 import { handleAnimation } from "@/store/handleAnimation";
@@ -12,6 +12,7 @@ import { getSessionDuration } from "@/utils/sessionDuration";
 import Link from "next/link";
 import Nav from "./Nav";
 import { cartActions } from "@/store/cart";
+import ExpiredSession from "./SessionModal";
 
 let initial = true;
 
@@ -33,8 +34,10 @@ const Header: React.FC<{ children: ReactNode; onShow: () => void }> = (
   const dispatchStore = useDispatch<AppDispatch>();
   const cart = useSelector((state: RootState) => state.cart.cart);
   const { animationA } = useSelector((state: RootState) => state.animation);
-  const logged = useSelector((state: RootState) => state.login.logged);
+  const loginState = useSelector((state: RootState) => state.login);
   const [isLogged, setIsLogged] = useState("start");
+  const [expiredSession, setExpiredSession] = useState(false);
+  const { name, logged } = loginState;
 
   const closeBackdrop = () => {
     dispatch({ type: "sideState" });
@@ -62,19 +65,20 @@ const Header: React.FC<{ children: ReactNode; onShow: () => void }> = (
       }
     }
 
-    let leaving:any;
+    let leaving: any;
 
     if (isLogged === "true" && userName) {
       dispatchStore(loginActions.logIn({ name: userName }));
       dispatchStore(getCart(userName));
       leaving = setTimeout(() => {
         loginOut();
+        setExpiredSession(true);
       }, remaining);
     }
 
     return () => {
-      clearInterval(leaving)
-    }
+      clearInterval(leaving);
+    };
   }, [logged]);
 
   useEffect(() => {
@@ -87,7 +91,31 @@ const Header: React.FC<{ children: ReactNode; onShow: () => void }> = (
   return (
     <>
       {reducerState.sideState && <Backdrop onClose={closeBackdrop} />}
+      {expiredSession && (
+        <ExpiredSession onClose={() => setExpiredSession(false)}>
+          <div className="text-center">
+            <p className="pb-8">Su sesión expiró</p>
+            <Link href="/login">
+              <button
+                onClick={() => setExpiredSession(false)}
+                className="cursor-auto bg-zinc-900 text-white px-5 py-2 lg:cursor-pointer"
+              >
+                LOGIN
+              </button>
+            </Link>
+          </div>
+        </ExpiredSession>
+      )}
+
       <div className={logged ? "pb-6" : "-mb-1 lg:pb-8 lg:m-0"}>
+        {logged && (
+          <p className="hidden lg:block -mb-[4.7rem] pt-10 text-xl pl-4">
+            <span className="bg-white text-black ml-6 px-2 py-1">
+              Hola {name}!!
+            </span>
+          </p>
+        )}
+
         <div>
           <div>
             <Image
@@ -119,7 +147,7 @@ const Header: React.FC<{ children: ReactNode; onShow: () => void }> = (
                       Registro
                     </p>
                   </Link>
-                  <Link onClick={() => initial = true} href="/login">
+                  <Link onClick={() => (initial = true)} href="/login">
                     <p className="hover:underline cursor-auto lg:cursor-pointer">
                       Login
                     </p>
@@ -150,6 +178,13 @@ const Header: React.FC<{ children: ReactNode; onShow: () => void }> = (
                 </div>
               )}
             </div>
+            {logged && (
+              <p className="text-xl text-right -mt-12 pr-4 lg:hidden">
+                <span className="bg-white text-black mr-4 px-2 py-1">
+                  Hola {name}!!
+                </span>
+              </p>
+            )}
 
             <Nav className="headLg" />
           </div>

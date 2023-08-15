@@ -12,9 +12,36 @@ export const getCart = (name: string) => {
         res[key].cart
           ? dispatch(cartActions.initialCart(res[key].cart))
           : dispatch(cartActions.initialCart([]));
-          break;
+        break;
       }
     }
   };
 };
 
+export const removeCart = (name: string) => {
+  return async (dispatch: AppDispatch) => {
+    dispatch(cartActions.resetCart());
+    const req = await fetch(
+      "https://guitar-store-fa2db-default-rtdb.firebaseio.com/users.json"
+    );
+    const res = await req.json();
+    const usersUpdated = { ...res };
+    for (const key in usersUpdated) {
+      let user = usersUpdated[key];
+      if (user.userName === name) {
+        user.cart = [];
+        break;
+      }
+    }
+    await fetch(
+      "https://guitar-store-fa2db-default-rtdb.firebaseio.com/users.json",
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(usersUpdated),
+      }
+    );
+  };
+};

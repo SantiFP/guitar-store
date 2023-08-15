@@ -3,7 +3,7 @@
     "name": "Yamaha",
     "price": 800,
     "id": 0,
-    "img": "https://w7.pngwing.com/pngs/947/613/png-transparent-acoustic-electric-guitar-yamaha-corporation-semi-acoustic-guitar-yamaha-pickup-guitar-accessory-transport.png",
+    "img": "./yamaha.png",
     "type": "acoustic",
     "description":"Guitarra acústica Yamaha de madera de roble fabricada en Japón con una gran respuesta en frecuencia."
   },
@@ -11,7 +11,7 @@
     "name": "Memphis",
     "price": 1200,
     "id": 1,
-    "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQR8pUJwz3BEyXjQqROlxHY23zhqeJH7g2zuvhLfJlsmz2WE4Fh069LbPfDDzURFUIpklU&usqp=CAU",
+    "img": "./memphis.png",
     "type": "acoustic",
     "description": "Guitarra acústica memphis de origen chino fabricada con madera de arce liviana perfecta para ser transportada a donde quieras."
   },
@@ -19,7 +19,7 @@
     "name": "Gibson",
     "price": 900,
     "id": 2,
-    "img": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Gibson_LP_Classic.png",
+    "img": "./gibson.png",
     "type": "electric",
     "description":"Guitarra eléctrica Gibson de origen americano con un dulce sonido en el canal limpio y una distorsión potente."
   },
@@ -27,7 +27,7 @@
     "name": "Fender",
     "price": 1200,
     "id": 3,
-    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Red_Fender_Stratocaster.svg/1200px-Red_Fender_Stratocaster.svg.png",
+    "img": "./fender-strat.png",
     "type": "electric",
     "description":"Guitarra eléctrica Fender perfecta para todo tipo de género especialmente blues."
   },
@@ -35,15 +35,15 @@
     "name": "Strings",
     "price": 200,
     "id": 4,
-    "img": "https://www.daddario.com/globalassets/inriver/resources/ds_ej15_detail1_transparent.png",
+    "img": "./daddario.png",
     "type": "gadget",
-    "description":"Cuerdas resistentes de alto rendimiento, afinación garantizada y el mejor sonido para tu instrumento"
+    "description":"Cuerdas resistentes de alto rendimiento, afinación garantizada y el mejor sonido para tu instrumento."
   },
   {
     "name": "Tuner",
     "price": 500,
     "id": 5,
-    "img": "https://www.popsci.com/uploads/2019/09/02/best-guitar-tuners.jpg?auto=webp",
+    "img": "./tuner.png",
     "type": "gadget",
     "description":"Afinador de precisión que no puede faltar en el bolsillo de cualquier músico."
   },
@@ -51,7 +51,7 @@
     "name": "Cort",
     "price": 3000,
     "id": 6,
-    "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQR8pUJwz3BEyXjQqROlxHY23zhqeJH7g2zuvhLfJlsmz2WE4Fh069LbPfDDzURFUIpklU&usqp=CAU",
+    "img": "./yamaha.png",
     "type": "acoustic",
     "description":"Guitarra acústica cort de origen chino fabricada con madera de arce liviana perfecta para ser transportada a donde quieras."
   },
@@ -59,7 +59,7 @@
     "name": "Ibanez",
     "price": 8915,
     "id": 7,
-    "img": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Gibson_LP_Classic.png",
+    "img": "./ibanez.png",
     "type": "electric",
     "description":"Guitarra eléctrica Ibanez de origen americano con un dulce sonido en el canal limpio y una distorsión potente."
   },
@@ -67,7 +67,7 @@
     "name": "Hauser",
     "price": 1200,
     "id": 8,
-    "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQR8pUJwz3BEyXjQqROlxHY23zhqeJH7g2zuvhLfJlsmz2WE4Fh069LbPfDDzURFUIpklU&usqp=CAU",
+    "img": "./memphis.png",
     "type": "acoustic",
     "description":"Guitarra acústica Hauser de madera de roble fabricada en Japón con una gran respuesta en frecuencia."
   },
@@ -75,15 +75,15 @@
     "name": "Daddario",
     "price": 740,
     "id": 9,
-    "img": "https://www.daddario.com/globalassets/inriver/resources/ds_ej15_detail1_transparent.png",
+    "img": "./daddario.png",
     "type": "gadget",
-    "description":"Cuerdas resistentes de alto rendimiento, afinación garantizada y el mejor sonido para tu instrumento"
+    "description":"Cuerdas resistentes de alto rendimiento, afinación garantizada y el mejor sonido para tu instrumento."
   },
   {
     "name": "LTD",
     "price": 8915,
     "id": 10,
-    "img": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Gibson_LP_Classic.png",
+    "img": "./gibson.png",
     "type": "electric",
     "description":"Guitarra eléctrica LTD perfecta para todo tipo de género especialmente blues."
   },
@@ -91,7 +91,7 @@
     "name": "Bx-40",
     "price": 1200,
     "id": 11,
-    "img": "https://w7.pngwing.com/pngs/947/613/png-transparent-acoustic-electric-guitar-yamaha-corporation-semi-acoustic-guitar-yamaha-pickup-guitar-accessory-transport.png",
+    "img": "./yamaha.png",
     "type": "acoustic",
     "description":"Guitarra acústica Bx-40 de origen chino fabricada con madera de arce liviana perfecta para ser transportada a donde quieras."
   },
@@ -99,15 +99,15 @@
     "name": "Strings gold",
     "price": 740,
     "id": 12,
-    "img": "https://www.daddario.com/globalassets/inriver/resources/ds_ej15_detail1_transparent.png",
+    "img": "./daddario.png",
     "type": "gadget",
-    "description":"Cuerdas resistentes de alto rendimiento, afinación garantizada y el mejor sonido para tu instrumento"
+    "description":"Cuerdas resistentes de alto rendimiento, afinación garantizada y el mejor sonido para tu instrumento."
   },
   {
     "name": "Gibson SG",
     "price": 8915,
     "id": 13,
-    "img": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Gibson_LP_Classic.png",
+    "img": "./gibson.png",
     "type": "electric",
     "description":"Guitarra eléctrica Gibson de origen americano con un dulce sonido en el canal limpio y una distorsión potente."
   },
@@ -115,7 +115,7 @@
     "name": "Fender-150",
     "price": 1200,
     "id": 14,
-    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Red_Fender_Stratocaster.svg/1200px-Red_Fender_Stratocaster.svg.png",
+    "img": "./fender-strat.png",
     "type": "electric",
     "description":"Guitarra eléctrica Fender perfecta para todo tipo de género especialmente blues."
   },
@@ -123,7 +123,7 @@
     "name": "Tuner Pro",
     "price": 500,
     "id": 15,
-    "img": "https://www.popsci.com/uploads/2019/09/02/best-guitar-tuners.jpg?auto=webp",
+    "img": "./tuner.png",
     "type": "gadget",
     "description":"Afinador de precisión que no puede faltar en el bolsillo de cualquier músico."
   },
@@ -131,23 +131,23 @@
     "name": "Ibanez gold",
     "price": 8915,
     "id": 16,
-    "img": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Gibson_LP_Classic.png",
+    "img": "./ibanez.png",
     "type": "electric",
     "description":"Guitarra eléctrica Ibanez de origen americano con un dulce sonido en el canal limpio y una distorsión potente."
   },
   {
-    "name": "Yamaha EVH",
+    "name": "Fender EVH",
     "price": 1200,
     "id": 17,
-    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Red_Fender_Stratocaster.svg/1200px-Red_Fender_Stratocaster.svg.png",
+    "img": "./fender-strat.png",
     "type": "electric",
     "description":"Guitarra eléctrica Yamaha de madera de roble fabricada en Japón con una gran respuesta en frecuencia."
   },
   {
-    "name": "Telecaster pro",
+    "name": "Fender-tele",
     "price": 1856,
     "id": 18,
-    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Red_Fender_Stratocaster.svg/1200px-Red_Fender_Stratocaster.svg.png",
+    "img": "./fender-tele.png",
     "type": "electric",
     "description":"Guitarra eléctrica Fender Telecaster perfecta para todo tipo de género especialmente blues."
   }

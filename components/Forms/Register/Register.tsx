@@ -5,6 +5,7 @@ import Warning from "../Warnings/Warning";
 import Checks from "./Checks";
 import { Form, ActionType } from "@/Types/types";
 import { useRouter } from "next/router";
+import registerHandler from "./RegisterHandler";
 
 const initialFormState: Form = {
   name: "",
@@ -46,59 +47,6 @@ const RegisterForm = () => {
   const { input1Touched, input2Touched, input3Touched, input4Touched } =
     inputsObject;
 
-  const registerHandler = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!completed) {
-      return;
-    }
-
-    let checkUserName = false;
-    try {
-      const req = await fetch(
-        "https://guitar-store-fa2db-default-rtdb.firebaseio.com/users.json"
-      );
-      const res = await req.json();
-
-      for (const key in res) {
-        if (res[key].userName === name) {
-          checkUserName = true;
-          break;
-        }
-      }
-      if (checkUserName) {
-        setUserNameExists(true);
-        return;
-      }
-    } catch (err) {
-      console.log(err);
-    }
-
-    try {
-      setLoading(true);
-
-      const data = {
-        userName: name.toLowerCase(),
-        password: password,
-        cart: [],
-      };
-
-      await fetch(
-        "https://guitar-store-fa2db-default-rtdb.firebaseio.com/users.json",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
-      router.push("/login");
-    } catch (error) {
-      setLoading(false);
-      console.error("Error al enviar datos:", error);
-    }
-  };
-
   const {
     nameIsOK,
     emailIsOK,
@@ -107,6 +55,18 @@ const RegisterForm = () => {
     confirmPasswordIsOk,
     completed,
   } = Checks(name, email, password, confirmPassword);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    registerHandler(
+      e,
+      completed,
+      setUserNameExists,
+      setLoading,
+      name,
+      password,
+      router
+    );
+  };
 
   return (
     <>
@@ -119,7 +79,7 @@ const RegisterForm = () => {
         </div>
       )}
       {!loading && (
-        <form onSubmit={registerHandler} className="formDiv">
+        <form onSubmit={handleSubmit} className="formDiv">
           <PasswordLevels levels={levels} />
 
           {/* //////////////////////////// INPUT USERNAME ///////////////////////////////////////////// */}
@@ -157,9 +117,9 @@ const RegisterForm = () => {
             }
           />
 
-          {/* <Warning isTouched={input2Touched} isOk={emailIsOK}>
+          <Warning isTouched={input2Touched} isOk={emailIsOK}>
             El email debe contener un punto y un arroba
-          </Warning> */}
+          </Warning>
 
           {/* //////////////////////////////// INPUT PASSWORD ////////////////////////////////////////////// */}
 
@@ -208,9 +168,9 @@ const RegisterForm = () => {
             }
           />
 
-          {/* <Warning isTouched={input4Touched} isOk={confirmPasswordIsOk}>
+          <Warning isTouched={input4Touched} isOk={confirmPasswordIsOk}>
             Las contraseñas no coinciden
-          </Warning> */}
+          </Warning>
 
           <div className="text-center pt-4 text-xl">
             <button
