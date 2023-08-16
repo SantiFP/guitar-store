@@ -48,8 +48,8 @@ const PasswordLevels = (props: { levels: boolean }) => {
         </div>
 
         <p className="text-center pb-2 pt-2">
-          <span className="bg-zinc-900 text-white px-2 py-1">
-            La contraseña debe tener al menos seguridad media para avanzar
+          <span className="bg-zinc-800 text-white px-4 py-1">
+            Seguridad media es requisito mínimo
           </span>
         </p>
       </div>
