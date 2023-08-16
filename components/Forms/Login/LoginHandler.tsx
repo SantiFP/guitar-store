@@ -17,7 +17,7 @@ const loginHandler = async (
   router:NextRouter
 ) => {
   e.preventDefault();
-  const name = nameRef.current?.value.trim().toLowerCase();
+  const name = nameRef.current?.value.trim();
   const password = passwordRef.current?.value.trim();
   const nameLength = name && name.trim().length > 2;
   const passwordLength =
