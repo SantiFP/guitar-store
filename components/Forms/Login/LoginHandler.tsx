@@ -19,7 +19,7 @@ const loginHandler = async (
   e.preventDefault();
   const name = nameRef.current?.value.trim();
   const password = passwordRef.current?.value.trim();
-  const nameLength = name && name.trim().length > 2;
+  const nameLength = name && name.length > 2;
   const passwordLength =
     password &&
     (/^(?=.*[a-z])(?=.*\d)[A-Za-z\d.]{4,}$/.test(password.trim()) ||
