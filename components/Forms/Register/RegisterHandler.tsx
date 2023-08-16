@@ -22,7 +22,7 @@ const registerHandler = async (
     const res = await req.json();
 
     for (const key in res) {
-      if (res[key].userName === name.toLowerCase().trim()) {
+      if (res[key].userName === name.trim()) {
         checkUserName = true;
         break;
       }
@@ -40,7 +40,7 @@ const registerHandler = async (
     setLoading(true);
 
     const data = {
-      userName: name.toLowerCase().trim(),
+      userName: name.trim(),
       password: password,
       cart: [],
     };
