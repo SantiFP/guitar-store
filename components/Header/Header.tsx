@@ -1,7 +1,7 @@
 import Image from "next/image";
 import classes from "./Header.module.css";
 import { ReactNode, useEffect, useReducer, useState } from "react";
-import Modal, { Backdrop } from "../Modal/Modal";
+import { Backdrop } from "../Modal/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store";
 import { handleAnimation } from "@/store/handleAnimation";
@@ -35,7 +35,6 @@ const Header: React.FC<{ children: ReactNode; onShow: () => void }> = (
   const cart = useSelector((state: RootState) => state.cart.cart);
   const { animationA } = useSelector((state: RootState) => state.animation);
   const loginState = useSelector((state: RootState) => state.login);
-  const [isLogged, setIsLogged] = useState("start");
   const [expiredSession, setExpiredSession] = useState(false);
   const { name, logged } = loginState;
 
@@ -55,8 +54,6 @@ const Header: React.FC<{ children: ReactNode; onShow: () => void }> = (
     const isLogged = localStorage.getItem("logged");
     const userName = localStorage.getItem("name");
     const remaining = getSessionDuration();
-
-    setIsLogged(isLogged || "");
 
     if (remaining) {
       if (remaining < 0) {
@@ -140,7 +137,7 @@ const Header: React.FC<{ children: ReactNode; onShow: () => void }> = (
                   Logout
                 </p>
               )}
-              {!logged && !isLogged ? (
+              {!logged ? (
                 <div className="logAndReg">
                   <Link href="/register">
                     <p className="hover:underline cursor-auto lg:cursor-pointer">

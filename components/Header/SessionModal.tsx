@@ -8,7 +8,7 @@ const ExpiredSession = (props: {
   return (
     <>
       <div className={classes.backdrop} onClick={props.onClose}/>
-      <div className={classes.modal}>{props.children}</div>;
+      <div className={classes.modal}>{props.children}</div>
     </>
   );
 };

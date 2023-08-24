@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import classes from "./Modal.module.css";
 
 export const Backdrop: React.FC<{ onClose: () => void }> = (props) => {
-  return <div className={classes.backdrop} onClick={props.onClose} />;
+  return <div className={classes.backdrop} onClick={props.onClose} />
 };
 
 const ModalOverlay: React.FC<{

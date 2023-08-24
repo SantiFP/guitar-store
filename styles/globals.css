@@ -23,7 +23,7 @@ body {
     @apply text-2xl w-[60%] mx-auto px-3 py-2 bg-zinc-900 text-white lg:w-3/4
   }
   .selection{
-    @apply flex flex-col space-y-1 text-3xl cursor-auto lg:cursor-pointer
+    @apply flex flex-col space-y-2 text-3xl cursor-auto lg:cursor-pointer
   }
   .signs {
     @apply w-5/6 mx-auto bg-zinc-900  text-white cursor-auto lg:cursor-pointer lg:w-full lg:hover:bg-black;
