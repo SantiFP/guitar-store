@@ -97,11 +97,11 @@ const Item = (props: ItemObj) => {
             </div>
           )}
 
-          <p className="pb-2">
+          <div className="py-2">
             <span className="text-2xl bg-zinc-800 px-2 py-1 text-white">
               $ {props.price * amount}
             </span>
-          </p>
+          </div>
           <div>
             <span className=" hover:underline lg:cursor-pointer">
               <Link href={`/${props.id}`}>Mas información</Link>
