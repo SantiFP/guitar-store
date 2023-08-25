@@ -13,7 +13,6 @@
   right: 5%;
   left: 5%;
   width: 90%;
-  top: 10%;
   background-color: white;
   padding: 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
@@ -45,7 +44,7 @@
     left: 12.5%;
     right: 12.5%;
     top: 6%;
-    max-height: 90vh;
+    max-height: 80vh;
   }
 }
 
